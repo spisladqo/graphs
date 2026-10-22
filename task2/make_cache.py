@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Промахи кэшей при росте числа рангов — графики в стиле slides «время по фазам».
 
-Данные берутся из perf_cache.csv, который делает perf_cache.py:
+Данные берутся из CSV, которые делает perf_cache.py:
   algo, graph, n, rank, event, value
 где rank = -1 — сумма счётчиков по всем рангам, остальные строки — счётчики
 отдельных рангов. События: L1-dcache-load-misses и LLC-load-misses.
+Файлы могут лежать в разных CSV (perf_cache.csv, perf_cache_tc_pr.csv) —
+достаточно перечислить их в аргументах.
 
 Рисунки повторяют график фаз (make_phases.py): своя панель на каждый граф,
 столбцы по P, две фазы сложены друг на друга, подпись итога над столбцом,
@@ -12,16 +14,20 @@
 (L1) и светлая (LLC) части столбца, слева — миллионы промахов.
 
 Рисунки:
-  cache_bfs.pdf/png   промахи кэшей в BFS
-  cache_sssp.pdf/png  промахи кэшей в SSSP
-  cache.csv           таблица промахов и коэффициента роста
+  cache_bfs.pdf/png       промахи кэшей в BFS
+  cache_sssp.pdf/png      промахи кэшей в SSSP
+  cache_tc.pdf/png        промахи кэшей в подсчёте треугольников
+  cache_pagerank.pdf/png  промахи кэшей в PageRank
+  cache.csv               таблица промахов и коэффициента роста
 
-Запуск:  python make_cache.py [perf_cache.csv] [каталог_для_картинок]
+Запуск:  python make_cache.py [csv ...] [-o каталог_для_картинок]
 """
+import argparse
 import csv
 import os
 import sys
 from collections import defaultdict
+from pathlib import Path
 
 import matplotlib
 
@@ -30,12 +36,16 @@ import matplotlib.pyplot as plt
 
 from make_speedup import PRETTY
 
-ALGOS = ["bfs", "sssp"]
-ALGO_TITLE = {"bfs": "BFS", "sssp": "SSSP"}
+CURR_DIR = Path(__file__).parent.resolve()
+
+ALGOS = ["bfs", "sssp", "tc", "pagerank"]
+ALGO_TITLE = {"bfs": "BFS", "sssp": "SSSP", "tc": "TC", "pagerank": "PageRank"}
 # графы ровно как на слайдах talk/talk.pdf
 GRAPHS_BY_ALGO = {
     "bfs": ["belgium_osm", "rgg_n_2_22_s0", "soc-LiveJournal1"],
     "sssp": ["belgium_osm", "rgg_n_2_22_s0", "soc-LiveJournal1"],
+    "tc": ["coPapersDBLP", "rgg_n_2_22_s0"],
+    "pagerank": ["soc-LiveJournal1", "rgg_n_2_22_s0"],
 }
 EVENTS = [
     ("L1-dcache-load-misses", "промахи L1", "tab:green"),
@@ -57,23 +67,27 @@ plt.rcParams.update({
 # --------------------------------------------------------------------------- разбор
 
 
-def load(path):
+def load(paths):
     """total[(algo, graph, n, event)] — сумма счётчиков по рангам."""
     total = {}
     per_rank = defaultdict(dict)
-    with open(path, newline="") as f:
-        for r in csv.DictReader(f):
-            algo, graph = r["algo"], r["graph"]
-            if algo not in ALGOS or graph not in GRAPHS_BY_ALGO[algo]:
-                continue
-            n, rank, event = int(r["n"]), int(r["rank"]), r["event"]
-            if n not in RANKS:
-                continue
-            val = float(r["value"])
-            if rank < 0:
-                total[(algo, graph, n, event)] = val
-            else:
-                per_rank[(algo, graph, n, event)][rank] = val
+    for path in paths:
+        if not os.path.isfile(path):
+            print(f"  пропущен отсутствующий файл {path}")
+            continue
+        with open(path, newline="") as f:
+            for r in csv.DictReader(f):
+                algo, graph = r["algo"], r["graph"]
+                if algo not in ALGOS or graph not in GRAPHS_BY_ALGO[algo]:
+                    continue
+                n, rank, event = int(r["n"]), int(r["rank"]), r["event"]
+                if n not in RANKS:
+                    continue
+                val = float(r["value"])
+                if rank < 0:
+                    total[(algo, graph, n, event)] = val
+                else:
+                    per_rank[(algo, graph, n, event)][rank] = val
     # сумма из отдельных рангов — если строки с rank = -1 нет
     for key, ranks in per_rank.items():
         total.setdefault(key, sum(ranks.values()))
@@ -129,8 +143,8 @@ def fig_cache(total, out, algo):
                         fontsize=7)
 
         mult = growth(total, algo, g, EVENTS[0][0])
-        ax.set_title(f"{PRETTY.get(g, g)}: $\\times${mult:.2f} при P = 6",
-                     fontsize=10)
+        ax.set_title(f"{PRETTY.get(g, g)}: $\\times${mult:.2f} при P = 6"
+                     if mult else f"{PRETTY.get(g, g)}", fontsize=10)
         ax.set_xlabel("P, рангов")
         ax.set_ylabel("промахи, млн")
         ax.set_xticks(RANKS)
@@ -166,16 +180,34 @@ def dump_csv(total, per_rank, out):
     return path
 
 
-def main():
-    csv_path = sys.argv[1] if len(sys.argv) > 1 else "perf_cache.csv"
-    out = sys.argv[2] if len(sys.argv) > 2 else "figs"
-    os.makedirs(out, exist_ok=True)
-    total, per_rank = load(csv_path)
-    if not total:
-        sys.exit(f"в {csv_path} нет подходящих данных")
+def default_csvs():
+    """Все perf_cache*.csv рядом со скриптом."""
+    return [str(p) for p in sorted(CURR_DIR.glob("perf_cache*.csv"))]
 
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("csv", nargs="*",
+                    help="CSV с промахами (по умолчанию — все perf_cache*.csv)")
+    ap.add_argument("-o", "--out", default="figs", help="каталог для картинок")
+    args = ap.parse_args()
+
+    csvs = args.csv or default_csvs()
+    if not csvs:
+        sys.exit("не найдено ни одного CSV с промахами")
+    out = args.out
+    os.makedirs(out, exist_ok=True)
+    total, per_rank = load(csvs)
+    if not total:
+        sys.exit(f"в {', '.join(csvs)} нет подходящих данных")
+
+    print(f"источники: {', '.join(csvs)}")
     print("промахи (млн, сумма по рангам):")
     for algo in ALGOS:
+        if not any(k[0] == algo for k in total):
+            print(f"  {ALGO_TITLE[algo]}: нет данных")
+            continue
         print(f"  {ALGO_TITLE[algo]}")
         for g in GRAPHS_BY_ALGO[algo]:
             for event, _, _ in EVENTS:
@@ -183,11 +215,14 @@ def main():
                 for n in RANKS:
                     v = value_of(total, algo, g, n, event)
                     cells.append(f"P{n}:{v/1e6:.1f}" if v is not None else f"P{n}:-")
+                mult = growth(total, algo, g, event)
+                tail = f"   рост x{mult:.2f}" if mult else ""
                 print(f"    {PRETTY.get(g, g):14} {event:22} "
-                      + "  ".join(cells)
-                      + f"   рост x{growth(total, algo, g, event):.2f}")
+                      + "  ".join(cells) + tail)
 
     for algo in ALGOS:
+        if not any(k[0] == algo for k in total):
+            continue
         fig_cache(total, out, algo)
     print(f"\nкартинки записаны в {os.path.abspath(out)}/")
     print(f"таблица: {dump_csv(total, per_rank, out)}")

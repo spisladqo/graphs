@@ -11,7 +11,7 @@ figures:
 	python3 ../make_speedup.py ../results ../figs
 	python3 ../make_phases.py ../results ../figs
 	python3 ../make_hosts.py ../results ../figs
-	python3 ../make_cache.py ../perf_cache.csv ../figs
+	python3 ../make_cache.py ../perf_cache.csv ../perf_cache_tc_pr.csv -o ../figs
 	cp ../figs/speedup_all.pdf \
 	   ../figs/speedup_bfs.pdf ../figs/speedup_sssp.pdf \
 	   ../figs/speedup_pagerank.pdf ../figs/speedup_tc.pdf \
@@ -19,8 +19,9 @@ figures:
 	   ../figs/time_pagerank_graphs.pdf ../figs/time_tc_graphs.pdf \
 	   ../figs/phases_bfs.pdf ../figs/phases_sssp.pdf \
 	   ../figs/phases_pagerank.pdf ../figs/phases_tc.pdf \
-	   ../figs/bfs_hosts.pdf \
+	   ../figs/bfs_hosts.pdf ../figs/pagerank_hosts.pdf \
 	   ../figs/cache_bfs.pdf ../figs/cache_sssp.pdf \
+	   ../figs/cache_tc.pdf ../figs/cache_pagerank.pdf \
 	   ../figs/speedup.csv ../figs/phases.csv ../figs/cache.csv figures/
 
 %.pdf: %.tex *.tex figures/*.pdf

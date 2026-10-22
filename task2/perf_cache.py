@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Промахи кэшей для BFS и SSSP на всех графах.
+"""Промахи кэшей для BFS, SSSP, TC и PageRank.
 
 Каждый ранг MPI оборачивается в `perf stat`, поэтому счётчики снимаются
 отдельно для каждого ранга (обычный `perf stat mpirun ...` измерял бы только
@@ -11,9 +11,15 @@
   perf_raw/<algo>_<graph>_n<N>/rank<R>.txt — сырые отчёты perf stat;
   perf_raw/<algo>_<graph>_n<N>/run.log     — stdout/stderr прогона.
 
+Графы по умолчанию:
+  bfs, sssp            — все графы из data/;
+  tc                   — coPapersDBLP, rgg_n_2_22_s0;
+  pagerank             — soc-LiveJournal1, rgg_n_2_22_s0.
+
 Запуск:
   python3 perf_cache.py
   python3 perf_cache.py --graphs belgium_osm rgg_n_2_22_s0 --ns 1 2 3
+  python3 perf_cache.py --algos tc pagerank --append
 """
 from pathlib import Path
 import argparse
@@ -33,14 +39,36 @@ ALGOS = {
         "bin": GALOIS_DIR / "bfs/bfs-push-dist",
         "graph": ".gr",
         "transpose": ".tgr",
+        "start_node": True,
         "extra": ["-maxIterations=10000", "-t=1", "-partition=oec", "-exec=Sync"],
     },
     "sssp": {
         "bin": GALOIS_DIR / "sssp/sssp-push-dist",
         "graph": ".wgr",
         "transpose": ".twgr",
+        "start_node": True,
         "extra": ["-maxIterations=10000", "-t=1", "-partition=oec", "-exec=Sync"],
     },
+    "tc": {
+        "bin": GALOIS_DIR / "triangle-counting/triangle-counting-dist",
+        "graph": ".gr",
+        "transpose": None,  # граф симметричный, отдельный транспонированный не нужен
+        "start_node": False,
+        "extra": ["-t=1", "-symmetricGraph", "-partition=oec"],
+    },
+    "pagerank": {
+        "bin": GALOIS_DIR / "pagerank/pagerank-pull-dist",
+        "graph": ".gr",
+        "transpose": ".tgr",
+        "start_node": False,
+        "extra": ["-t=1", "-partition=oec", "-exec=Sync"],
+    },
+}
+
+# Графы по умолчанию для алгоритмов, у которых свой набор (для bfs/sssp — все)
+DEFAULT_GRAPHS = {
+    "tc": ["coPapersDBLP", "rgg_n_2_22_s0"],
+    "pagerank": ["soc-LiveJournal1", "rgg_n_2_22_s0"],
 }
 
 EVENTS = "L1-dcache-load-misses,LLC-load-misses"
@@ -55,6 +83,23 @@ def all_graphs() -> list[str]:
         d.name for d in DATA_DIR.iterdir()
         if d.is_dir() and (d / (d.name + ".gr")).is_file() and (d / (d.name + ".wgr")).is_file()
     )
+
+
+def graphs_for(algo: str) -> list[str]:
+    """Графы по умолчанию для алгоритма, отфильтрованные по наличию файлов."""
+    spec = ALGOS[algo]
+    names = DEFAULT_GRAPHS.get(algo) or all_graphs()
+    out = []
+    for g in names:
+        if not (DATA_DIR / g / (g + spec["graph"])).is_file():
+            print(f"  SKIP {algo} {g}: нет файла {g + spec['graph']}")
+            continue
+        tr = spec["transpose"]
+        if tr and not (DATA_DIR / g / (g + tr)).is_file():
+            print(f"  SKIP {algo} {g}: нет файла {g + tr}")
+            continue
+        out.append(g)
+    return out
 
 
 def pick_median_vertex_from_edgelist(edgelist: Path) -> int:
@@ -107,15 +152,16 @@ def run_one(algo: str, graph: str, n: int, raw_dir: Path) -> tuple[list[list], l
     run_dir = raw_dir / f"{algo}_{graph}_n{n}"
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    vert = median_vertex(graph)
     app = [
         str(spec["bin"]),
         str(DATA_DIR / graph / (graph + spec["graph"])),
-        f"-startNode={vert}",
-        "-runs=1",
-        f"-graphTranspose={DATA_DIR / graph / (graph + spec['transpose'])}",
-        *spec["extra"],
     ]
+    if spec["start_node"]:
+        app.append(f"-startNode={median_vertex(graph)}")
+    app.append("-runs=1")
+    if spec["transpose"]:
+        app.append(f"-graphTranspose={DATA_DIR / graph / (graph + spec['transpose'])}")
+    app += spec["extra"]
     script = ('exec perf stat -e "$PERF_EVENTS" '
               '-o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"')
     cmd = [
@@ -167,35 +213,66 @@ def run_one(algo: str, graph: str, n: int, raw_dir: Path) -> tuple[list[list], l
     return rows, problems
 
 
+def existing_keys(path: Path) -> set[tuple[str, str, int]]:
+    """Пары (algo, graph, n), которые уже есть в CSV."""
+    keys: set[tuple[str, str, int]] = set()
+    if not path.is_file():
+        return keys
+    with path.open() as f:
+        r = csv.reader(f)
+        next(r, None)
+        for row in r:
+            if len(row) >= 3:
+                try:
+                    keys.add((row[0], row[1], int(row[2])))
+                except ValueError:
+                    pass
+    return keys
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--graphs", nargs="+", default=None,
-                        help="графы из data/ (по умолчанию: все)")
+                        help="графы из data/ (по умолчанию: свой набор для каждого алгоритма)")
     parser.add_argument("--ns", nargs="+", type=int, default=NS,
                         help="число рангов MPI (по умолчанию: 1 2 3 4 5 6)")
-    parser.add_argument("--algos", nargs="+", default=["bfs", "sssp"], choices=list(ALGOS))
+    parser.add_argument("--algos", nargs="+", default=list(ALGOS), choices=list(ALGOS))
     parser.add_argument("--out", default="perf_cache.csv", help="файл с результатами")
+    parser.add_argument("--append", action="store_true",
+                        help="дописать в существующий CSV вместо перезаписи")
+    parser.add_argument("--force", action="store_true",
+                        help="перезапустить прогоны, которые уже есть в CSV")
     parser.add_argument("--raw-dir", default="perf_raw", help="каталог с сырыми отчётами")
     args = parser.parse_args()
 
-    graphs = args.graphs if args.graphs else all_graphs()
     raw_dir = CURR_DIR / args.raw_dir
     raw_dir.mkdir(parents=True, exist_ok=True)
     out_file = CURR_DIR / args.out
 
-    print(f"graphs: {', '.join(graphs)}")
+    print(f"algos: {', '.join(args.algos)}")
     print(f"ns: {args.ns}")
-    print(f"algos: {args.algos}")
     print(f"events: {EVENTS}")
 
+    done = existing_keys(out_file) if out_file.is_file() else set()
+    if done and not args.append:
+        print(f"WARNING: {out_file} будет перезаписан ({len(done)} прогонов). "
+              f"Дописать вместо перезаписи: --append")
+    append = args.append and out_file.is_file() and out_file.stat().st_size > 0
+
     rows = []
-    with out_file.open("w", newline="") as f:
+    with out_file.open("a" if append else "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["algo", "graph", "n", "rank", "event", "value"])
+        if not append:
+            w.writerow(["algo", "graph", "n", "rank", "event", "value"])
         for algo in args.algos:
+            graphs = args.graphs if args.graphs else graphs_for(algo)
+            print(f"--- {algo}: {', '.join(graphs)}")
             for graph in graphs:
                 for n in args.ns:
+                    if (algo, graph, n) in done and not args.force:
+                        print(f"=== {algo} {graph} n={n} === SKIP (уже есть в CSV)")
+                        continue
                     print(f"=== {algo} {graph} n={n} ===", flush=True)
                     try:
                         run_rows, problems = run_one(algo, graph, n, raw_dir)

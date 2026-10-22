@@ -164,7 +164,7 @@
         \item belgium\_osm: $4.54 \to 1.79$~с, ускорение 2.53~--- лучший результат
         \item Ускорение падает с ростом средней степени: 2.5 (belgium\_osm) $\to$ 14.5 (RGG)
         \item На LiveJournal ($2.76 \to 2.18$~с) и RGG ($10.98 \to 6.24$~с) время
-              перестаёт падать после $P = 2$: барьер в каждом раунде и обмен зеркалами
+              перестаёт падать после $P = 2$
     \end{itemize}
 \end{frame}
 
@@ -178,7 +178,7 @@
     при $P = 1$ обмен не виден)}
 
     \begin{itemize}
-        \item belgium\_osm: обмен 10--16\%, $S(6) = 2.53$~--- деление работы перевешивает барьер
+        \item belgium\_osm: обмен 10--16\%, $S(6) = 2.53$
         \item RGG: уже при $P \ge 3$ обмен занимает 65--76\%, ускорение падает до 1.76
         \item LiveJournal: 39--49\% на всех $P$, $S(6) = 1.26$~--- зеркала хабов на всех рангах
     \end{itemize}
@@ -212,8 +212,7 @@
     \begin{itemize}
         \item RGG: ранги 0 и 3 получают 335 и 284 млн обработок, остальные~--- 11--38 млн;
               ранги 1, 2 и 4 по 4.2--4.7~с (67--76\% времени) проводят в обмене, $S(6) = 1.76$
-        \item LiveJournal: обмен 0.73--0.98~с на всех рангах (33--45\% времени);
-              темп задаёт ранг 5 (1.33~с вычислений)
+        \item LiveJournal: обмен 0.73--0.98~с на всех рангах (33--45\% времени)
     \end{itemize}
 \end{frame}
 
@@ -296,6 +295,42 @@
 \end{frame}
 
 \begin{frame}[shrink]
+    \frametitle{PageRank: промахи кэшей при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/cache_pagerank.pdf}
+    \figcap{PageRank: промахи кэшей при $P = 1\ldots6$; столбец разбит на промахи L1
+    (\texttt{L1-dcache-load-misses}) и промахи LLC (\texttt{LLC-load-misses}),
+    слева~--- миллионы промахов; в заголовке~--- во сколько раз
+    выросли промахи L1 при $P = 6$}
+
+    \begin{itemize}
+        \item LiveJournal: промахи L1 растут с 8940 до 10223~млн ($\times 1.14$),
+              LLC~--- почти не меняются (2143 $\to$ 2175~млн, $\times 1.01$)
+        \item RGG: $\times 1.12$ по L1 и $\times 1.16$ по LLC
+        \item В отличие от BFS, промахи почти не растут с числом рангов,
+              но и не падают: каждый раунд заново перечитывает память
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{PageRank: работа по рангам при $P = 6$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/pagerank_hosts.pdf}
+    \figcap{PageRank при $P = 6$: время фаз каждого ранга за прогон; вычисления~---
+    \texttt{PageRank\_*} (pull) и \texttt{PageRank\_delta\_*}, обмен~---
+    \texttt{Gluon Sync\_PageRank\_*}, остальное~--- остаток \texttt{Timer\_*}}
+
+    \begin{itemize}
+        \item Объём обработок одинаковый (1391 и 779 млн), времена вычислений
+              различаются в 1.7 раза
+        \item LiveJournal: ранг 5 считает 47.3~с из 57.6~с (82\%), остальные
+              48--70\%; обмен 9.2--19.4~с (16--34\% времени); остальное
+              1.1--10.4~с~--- ожидание медленного ранга (Allreduce)
+        \item RGG: 98\% времени --- вычисления, обмен короче 1~мс
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
     \frametitle{Подсчёт треугольников: время по графам}
     \centering
     \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/time_tc_graphs.pdf}
@@ -307,8 +342,24 @@
               RGG 4.49~--- один проход по мастерам и одно сложение (Allreduce),
               раундов и обмена нет
         \item coPapersDBLP ($30.5$ млн рёбер): $29.0 \to 13.0$~с, $S(6) = 2.24$
-        \item Работа перекошена: времена рангов при $P = 6$~---
-              $10.3/13.3/11.6/8.9/6.0/3.1$~с, максимальная степень вершины $6598$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{Подсчёт треугольников: промахи кэшей при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/cache_tc.pdf}
+    \figcap{TC: промахи кэшей при $P = 1\ldots6$; столбец разбит на промахи L1
+    (\texttt{L1-dcache-load-misses}) и промахи LLC (\texttt{LLC-load-misses}),
+    слева~--- миллионы промахов; в заголовке~--- во сколько раз
+    выросли промахи L1 при $P = 6$}
+
+    \begin{itemize}
+        \item coPapersDBLP: промахи L1 растут с 110 до 212~млн ($\times 1.92$),
+              LLC~--- с 4.7 до 15.3~млн ($\times 3.24$)
+        \item RGG: $\times 1.27$ по L1, но LLC~--- в 3.7 раза (3.1 $\to$ 11.7~млн)
+        \item Единственный алгоритм без раундов и обмена зеркалами: промахи растут,
+              а время всё равно делится почти идеально ($S(6) = 4.49$ на RGG)
     \end{itemize}
 \end{frame}
 
@@ -320,18 +371,17 @@
               (по 10--15 прогонов на точку)
         \item Найдено, от чего зависит ускорение:
               \begin{itemize}
-                  \item TC делится почти идеально на малых графах ($S(6) = 4.5\ldots4.9$):
-                        нет раундов и обмена; на coPapersDBLP с хабами~--- $2.24$
+                  \item TC делится почти идеально на малых графах ($S(6) = 4.5\ldots4.9$);
+                        на coPapersDBLP с хабами~--- $2.24$
                   \item PageRank делится хорошо на однородных графах (roadNet-CA: 4.45),
                         но плохо на графе с хабами (LiveJournal: 1.78)
-                  \item BFS и SSSP ограничены барьером в каждом раунде и обменом зеркалами:
-                        $S(6) = 1.3\ldots2.6$
                   \item чем больше средняя степень, тем хуже ускорение:
                         2.5 (belgium\_osm) $\to$ 14.5 (RGG)
                   \item графи с хабами (LiveJournal) почти не ускоряются: 1.26 и 1.31
                   \item промахи кэшей растут с числом рангов ($\times 1.1\ldots5.2$):
                         на LiveJournal копии хабов на всех рангах дают
-                        втрое больше промахов, чем при $P = 1$
+                        втрое больше промахов, чем при $P = 1$;
+                        в PageRank промахи почти не растут ($\times 1.01\ldots1.16$)
               \end{itemize}
         \item Ограничения: всё мерили на одной машине (обмен через общую память)
     \end{itemize}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.22)  22 OCT 2026 19:18
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.22)  22 OCT 2026 20:43
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1225,11 +1225,30 @@ File: figures/phases_pagerank.pdf Graphic file (type pdf)
  [15
 
 ]
-File: figures/time_tc_graphs.pdf Graphic file (type pdf)
-<use figures/time_tc_graphs.pdf>
+File: figures/cache_pagerank.pdf Graphic file (type pdf)
+<use figures/cache_pagerank.pdf>
  [16
 
-] [17
+]
+File: figures/pagerank_hosts.pdf Graphic file (type pdf)
+<use figures/pagerank_hosts.pdf>
+
+
+Class beamer Warning: Frame text is shrunk by a factor of 5.78003 percent instead of 0 percent on input line 331.
+
+[17
+
+]
+File: figures/time_tc_graphs.pdf Graphic file (type pdf)
+<use figures/time_tc_graphs.pdf>
+ [18
+
+]
+File: figures/cache_tc.pdf Graphic file (type pdf)
+<use figures/cache_tc.pdf>
+ [19
+
+] [20
 
 ]
 \tf@nav=\write7
@@ -1250,12 +1269,12 @@ Package rerunfilecheck Info: File `talk.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 38757 strings out of 468925
- 894273 string characters out of 5455480
- 1312489 words of memory out of 5000000
- 67018 multiletter control sequences out of 15000+600000
+ 38790 strings out of 468925
+ 895137 string characters out of 5455480
+ 1312657 words of memory out of 5000000
+ 67048 multiletter control sequences out of 15000+600000
  639086 words of font info for 179 fonts, out of 8000000 for 9000
  704 hyphenation exceptions out of 8191
  101i,15n,107p,418b,1083s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on talk.xdv (17 pages, 151292 bytes).
+Output written on talk.xdv (20 pages, 175480 bytes).

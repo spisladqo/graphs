@@ -1,0 +1,111 @@
+# command: mpirun -n 3 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: TC - Distributed Multi-GPU Triangle Counting 
+TC on Distributed GPU (D-IrGL).
+
+[2] Master distribution time : 0.002891 seconds to read 352 bytes in 43 seeks (0.121757 MBPS)
+[0] Master distribution time : 4.5e-05 seconds to read 184 bytes in 22 seeks (4.08889 MBPS)
+INFO: Calculating node degrees for partitioner
+[1] Master distribution time : 0.002923 seconds to read 368 bytes in 46 seeks (0.125898 MBPS)
+[0] Starting graph reading.
+[1] Starting graph reading.
+[2] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[0] Inspection sends complete.
+[2] Inspection sends complete.
+[1] Inspection sends complete.
+[2] Inspection receives complete.
+[2] Need receive 12159 edges; self is 10119075
+[0] Inspection receives complete.
+[0] Need receive 13836 edges; self is 10121201
+[1] Inspection receives complete.
+[1] Need receive 16404 edges; self is 10118922
+[2] Inspection allocation complete.
+[0] Inspection allocation complete.
+[1] Inspection allocation complete.
+[2] Edge loading time: 0.728746 seconds
+[2] Determining thread ranges
+[2] Graph construction complete.
+[0] Edge loading time: 0.730648 seconds
+[0] Determining thread ranges
+[0] Graph construction complete.
+[1] Edge loading time: 0.73008 seconds
+[1] Determining thread ranges
+[1] Graph construction complete.
+[2] TC::go run 0 called
+[0] TC::go run 0 called
+[1] TC::go run 0 called
+Total number of triangles 85962754
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, GetNodeDegrees, Time, HMAX, 20
+STAT, 0, GetNodeDegrees, Time, HostValues, 20; 20; 20
+STAT, 0, dGraph_Mining, EdgeInspectionBytesSent, HSUM, 67108936
+STAT, 0, dGraph_Mining, EdgeInspectionBytesSent, HostValues, 22373112; 22367112; 22368712
+STAT, 0, dGraph_Mining, EdgeLoadingMessagesSent, HSUM, 6
+STAT, 0, dGraph_Mining, EdgeLoadingMessagesSent, HostValues, 2; 2; 2
+STAT, 0, dGraph_Mining, EdgeLoadingBytesSent, HSUM, 479400
+STAT, 0, dGraph_Mining, EdgeLoadingBytesSent, HostValues, 122736; 209000; 147664
+STAT, 0, dGraph_Mining, EdgeLoadingMaxBytesSent, HMAX, 109296
+STAT, 0, dGraph_Mining, EdgeLoadingMaxBytesSent, HostValues, 86000; 109296; 99840
+STAT, 0, dGraph_Mining, EdgeLoading, HMAX, 730
+STAT, 0, dGraph_Mining, EdgeLoading, HostValues, 730; 730; 728
+STAT, 0, dGraph_Mining, TotalNodeProxies, HOST_0, 4203891
+STAT, 0, dGraph_Mining, TotalNodeProxies, HostValues, 4203891
+STAT, 0, dGraph_Mining, TotalEdgeProxies, HOST_0, 30401597
+STAT, 0, dGraph_Mining, TotalEdgeProxies, HostValues, 30401597
+STAT, 0, dGraph_Mining, OriginalNumberEdges, HOST_0, 60718396
+STAT, 0, dGraph_Mining, OriginalNumberEdges, HostValues, 60718396
+STAT, 0, dGraph_Mining, TotalKeptEdges, HOST_0, 30359198
+STAT, 0, dGraph_Mining, TotalKeptEdges, HostValues, 30359198
+STAT, 0, dGraph_Mining, GraphAllocation, HMAX, 10
+STAT, 0, dGraph_Mining, GraphAllocation, HostValues, 8; 9; 10
+STAT, 0, dGraph_Mining, EdgeInspection, HMAX, 1024
+STAT, 0, dGraph_Mining, EdgeInspection, HostValues, 1024; 1018; 1015
+STAT, 0, dGraph_Mining, GraphReading, HMAX, 61
+STAT, 0, dGraph_Mining, GraphReading, HostValues, 55; 61; 61
+STAT, 0, DistBench, GraphConstructTime, HMAX, 1890
+STAT, 0, DistBench, GraphConstructTime, HostValues, 1887; 1890; 1889
+STAT, 0, DistMiningBench, DistGraphInitialization, HMAX, 1890
+STAT, 0, DistMiningBench, DistGraphInitialization, HostValues, 1887; 1890; 1889
+STAT, 0, CSREdgeSort, Time, HMAX, 58
+STAT, 0, CSREdgeSort, Time, HostValues, 58; 58; 57
+STAT, 0, TC, SortEdgesCPU, HMAX, 58
+STAT, 0, TC, SortEdgesCPU, HostValues, 58; 58; 57
+STAT, 0, TC, Timer_0, HMAX, 1030
+STAT, 0, TC, Timer_0, HostValues, 1030; 1029; 1030
+STAT, 0, TC, TimerTotal, HMAX, 2979
+STAT, 0, TC, TimerTotal, HostValues, 2976; 2979; 2979
+STAT, 0, TC_0, Time, HMAX, 1030
+STAT, 0, TC_0, Time, HostValues, 1030; 1029; 1025
+STAT, 0, TC_0, Iterations, HSUM, 4194304
+STAT, 0, TC_0, Iterations, HostValues, 1398318; 1397943; 1398043
+STAT, 0, dGraph_Mining, ReplicationFactorNodes, HOST_0, 1.00229
+STAT, 0, dGraph_Mining, ReplicationFactorNodes, HostValues, 1.00229
+STAT, 0, dGraph_Mining, ReplicatonFactorEdges, HOST_0, 1.0014
+STAT, 0, dGraph_Mining, ReplicatonFactorEdges, HostValues, 1.0014
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 3
+PARAM, 0, DistBench, Hosts, HostValues, 3
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, d30206e4-2677-4fcd-bd2d-e1c09949522b
+PARAM, 0, DistBench, Run_UUID, HostValues, d30206e4-2677-4fcd-bd2d-e1c09949522b
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi
+PARAM, 0, dGraph_Mining, MiningGraph, HOST_0, 0
+PARAM, 0, dGraph_Mining, MiningGraph, HostValues, 0; 0; 0
+PARAM, 0, dGraph_Mining, UsingDegreeOrdering, HOST_0, 1
+PARAM, 0, dGraph_Mining, UsingDegreeOrdering, HostValues, 1; 1; 1

@@ -1,0 +1,144 @@
+# command: mpirun -n 6 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: TC - Distributed Multi-GPU Triangle Counting 
+TC on Distributed GPU (D-IrGL).
+
+[2] Master distribution time : 0.003276 seconds to read 368 bytes in 46 seeks (0.112332 MBPS)
+[3] Master distribution time : 0.003265 seconds to read 360 bytes in 43 seeks (0.11026 MBPS)
+[4] Master distribution time : 0.003151 seconds to read 360 bytes in 45 seeks (0.114249 MBPS)
+[5] Master distribution time : 0.003195 seconds to read 344 bytes in 41 seeks (0.107668 MBPS)
+[0] Master distribution time : 5.3e-05 seconds to read 184 bytes in 23 seeks (3.4717 MBPS)
+INFO: Calculating node degrees for partitioner
+[1] Master distribution time : 0.003437 seconds to read 368 bytes in 46 seeks (0.10707 MBPS)
+[4] Starting graph reading.
+[1] Starting graph reading.
+[0] Starting graph reading.
+[2] Starting graph reading.
+[3] Starting graph reading.
+[5] Starting graph reading.
+[0] Reading graph complete.
+[3] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[4] Reading graph complete.
+[5] Reading graph complete.
+[5] Inspection sends complete.
+[1] Inspection sends complete.
+[3] Inspection sends complete.
+[2] Inspection sends complete.
+[0] Inspection sends complete.
+[4] Inspection sends complete.
+[0] Inspection receives complete.
+[0] Need receive 9763 edges; self is 5060640
+[0] Inspection allocation complete.
+[1] Inspection receives complete.
+[1] Need receive 14916 edges; self is 5060561
+[2] Inspection receives complete.
+[2] Need receive 10190 edges; self is 5059729
+[1] Inspection allocation complete.
+[2] Inspection allocation complete.
+[3] Inspection receives complete.
+[3] Need receive 8781 edges; self is 5059193
+[4] Inspection receives complete.
+[5] Inspection receives complete.
+[4] Need receive 14577 edges; self is 5059825
+[5] Need receive 7946 edges; self is 5059250
+[3] Inspection allocation complete.
+[4] Inspection allocation complete.
+[5] Inspection allocation complete.
+[0] Edge loading time: 0.496231 seconds
+[0] Determining thread ranges
+[0] Graph construction complete.
+[1] Edge loading time: 0.488828 seconds
+[1] Determining thread ranges
+[1] Graph construction complete.
+[3] Edge loading time: 0.483414 seconds
+[3] Determining thread ranges
+[3] Graph construction complete.
+[4] Edge loading time: 0.500123 seconds
+[2] Edge loading time: 0.504115 seconds
+[4] Determining thread ranges
+[4] Graph construction complete.
+[2] Determining thread ranges
+[2] Graph construction complete.
+[5] Edge loading time: 0.503285 seconds
+[5] Determining thread ranges
+[5] Graph construction complete.
+[2] TC::go run 0 called
+[3] TC::go run 0 called
+[1] TC::go run 0 called
+[0] TC::go run 0 called
+[4] TC::go run 0 called
+[5] TC::go run 0 called
+Total number of triangles 85962754
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, GetNodeDegrees, Time, HMAX, 42
+STAT, 0, GetNodeDegrees, Time, HostValues, 42; 42; 42; 41; 42; 42
+STAT, 0, dGraph_Mining, EdgeInspectionBytesSent, HSUM, 106265544
+STAT, 0, dGraph_Mining, EdgeInspectionBytesSent, HostValues, 16818980; 16740740; 16774364; 16776356; 27977260; 11177844
+STAT, 0, dGraph_Mining, EdgeLoadingMessagesSent, HSUM, 19
+STAT, 0, dGraph_Mining, EdgeLoadingMessagesSent, HostValues, 3; 3; 3; 3; 5; 2
+STAT, 0, dGraph_Mining, EdgeLoadingBytesSent, HSUM, 749736
+STAT, 0, dGraph_Mining, EdgeLoadingBytesSent, HostValues, 90640; 153616; 105648; 134680; 161440; 103712
+STAT, 0, dGraph_Mining, EdgeLoadingMaxBytesSent, HMAX, 65920
+STAT, 0, dGraph_Mining, EdgeLoadingMaxBytesSent, HostValues, 56528; 64992; 64424; 61336; 62024; 65920
+STAT, 0, dGraph_Mining, EdgeLoading, HMAX, 504
+STAT, 0, dGraph_Mining, EdgeLoading, HostValues, 496; 488; 504; 483; 500; 503
+STAT, 0, dGraph_Mining, TotalNodeProxies, HOST_0, 4209426
+STAT, 0, dGraph_Mining, TotalNodeProxies, HostValues, 4209426
+STAT, 0, dGraph_Mining, TotalEdgeProxies, HOST_0, 30425371
+STAT, 0, dGraph_Mining, TotalEdgeProxies, HostValues, 30425371
+STAT, 0, dGraph_Mining, OriginalNumberEdges, HOST_0, 60718396
+STAT, 0, dGraph_Mining, OriginalNumberEdges, HostValues, 60718396
+STAT, 0, dGraph_Mining, TotalKeptEdges, HOST_0, 30359198
+STAT, 0, dGraph_Mining, TotalKeptEdges, HostValues, 30359198
+STAT, 0, dGraph_Mining, GraphAllocation, HMAX, 10
+STAT, 0, dGraph_Mining, GraphAllocation, HostValues, 10; 8; 8; 6; 4; 5
+STAT, 0, dGraph_Mining, EdgeInspection, HMAX, 772
+STAT, 0, dGraph_Mining, EdgeInspection, HostValues, 760; 763; 765; 771; 772; 758
+STAT, 0, dGraph_Mining, GraphReading, HMAX, 56
+STAT, 0, dGraph_Mining, GraphReading, HostValues, 38; 44; 44; 44; 44; 56
+STAT, 0, DistBench, GraphConstructTime, HMAX, 1434
+STAT, 0, DistBench, GraphConstructTime, HostValues, 1431; 1434; 1434; 1434; 1434; 1434
+STAT, 0, DistMiningBench, DistGraphInitialization, HMAX, 1434
+STAT, 0, DistMiningBench, DistGraphInitialization, HostValues, 1431; 1434; 1434; 1434; 1434; 1434
+STAT, 0, CSREdgeSort, Time, HMAX, 33
+STAT, 0, CSREdgeSort, Time, HostValues, 33; 33; 33; 33; 33; 33
+STAT, 0, TC, SortEdgesCPU, HMAX, 33
+STAT, 0, TC, SortEdgesCPU, HostValues, 33; 33; 33; 33; 33; 33
+STAT, 0, TC, Timer_0, HMAX, 583
+STAT, 0, TC, Timer_0, HostValues, 583; 583; 583; 583; 582; 583
+STAT, 0, TC, TimerTotal, HMAX, 2052
+STAT, 0, TC, TimerTotal, HostValues, 2049; 2052; 2052; 2052; 2052; 2052
+STAT, 0, TC_0, Time, HMAX, 582
+STAT, 0, TC_0, Time, HostValues, 579; 579; 581; 578; 582; 582
+STAT, 0, TC_0, Iterations, HSUM, 4194304
+STAT, 0, TC_0, Iterations, HostValues, 700789; 697529; 698930; 699013; 699430; 698613
+STAT, 0, dGraph_Mining, ReplicationFactorNodes, HOST_0, 1.00361
+STAT, 0, dGraph_Mining, ReplicationFactorNodes, HostValues, 1.00361
+STAT, 0, dGraph_Mining, ReplicatonFactorEdges, HOST_0, 1.00218
+STAT, 0, dGraph_Mining, ReplicatonFactorEdges, HostValues, 1.00218
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/triangle-counting/triangle-counting-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -t=1 -symmetricGraph -partition=oec
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 6
+PARAM, 0, DistBench, Hosts, HostValues, 6
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, ae602a6f-eca1-4241-8c17-e70223914194
+PARAM, 0, DistBench, Run_UUID, HostValues, ae602a6f-eca1-4241-8c17-e70223914194
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi; msi; msi; msi
+PARAM, 0, dGraph_Mining, MiningGraph, HOST_0, 0
+PARAM, 0, dGraph_Mining, MiningGraph, HostValues, 0; 0; 0; 0; 0; 0
+PARAM, 0, dGraph_Mining, UsingDegreeOrdering, HOST_0, 1
+PARAM, 0, dGraph_Mining, UsingDegreeOrdering, HostValues, 1; 1; 1; 1; 1; 1

@@ -1,0 +1,120 @@
+# command: mpirun -n 3 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: PageRank - Compiler Generated Distributed Heterogeneous
+PageRank Residual Pull version on Distributed Galois.
+
+[1] Master distribution time : 0.002194 seconds to read 376 bytes in 46 seeks (0.171376 MBPS)
+[1] Starting graph reading.
+[2] Master distribution time : 0.002267 seconds to read 360 bytes in 44 seeks (0.1588 MBPS)
+[2] Starting graph reading.
+[0] Master distribution time : 6.7e-05 seconds to read 184 bytes in 21 seeks (2.74627 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[0] Edge inspection time: 0.269561 seconds to read 99958840 bytes (370.821 MBPS)
+[1] Edge inspection time: 0.313618 seconds to read 106329644 bytes (339.042 MBPS)
+[2] Edge inspection time: 0.405019 seconds to read 147247720 bytes (363.558 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 1.1022 seconds to read 99958840 bytes (90.69 MBPS)
+[2] Edge loading time: 1.0622 seconds to read 147247720 bytes (138.625 MBPS)
+[1] Edge loading time: 1.85003 seconds to read 106329644 bytes (57.4745 MBPS)
+[0] Graph construction complete.
+[2] Graph construction complete.
+[1] Graph construction complete.
+[2] InitializeGraph::go called
+[0] InitializeGraph::go called
+[1] InitializeGraph::go called
+[0] PageRank::go run 0 called
+[2] PageRank::go run 0 called
+[1] PageRank::go run 0 called
+Max rank is 667.727
+Min rank is 0.15
+Rank sum is 3.91703e+06
+Residual sum is 0
+# nodes with residual over 1e-06 (tolerance) is 0
+Max residual is 1.17549e-38
+Min residual is 0
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 1850
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 1102; 1850; 1062
+STAT, 0, dGraph_Generic, TIMER_GRAPH_TRANSPOSE, HMAX, 1966
+STAT, 0, dGraph_Generic, TIMER_GRAPH_TRANSPOSE, HostValues, 1966; 1907; 1953
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 405
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 269; 313; 405
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 89
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 71; 74; 89
+STAT, 0, TRANSPOSE_EDGEINTDATA_COPY, Time, HMAX, 45
+STAT, 0, TRANSPOSE_EDGEINTDATA_COPY, Time, HostValues, 25; 29; 45
+STAT, 0, TRANSPOSE_EDGEINTDATA_INC, Time, HMAX, 653
+STAT, 0, TRANSPOSE_EDGEINTDATA_INC, Time, HostValues, 611; 620; 653
+STAT, 0, TRANSPOSE_EDGEINTDATA_SET, Time, HMAX, 9
+STAT, 0, TRANSPOSE_EDGEINTDATA_SET, Time, HostValues, 5; 7; 9
+STAT, 0, TRANSPOSE_EDGEINTDATA_TEMP, Time, HMAX, 10
+STAT, 0, TRANSPOSE_EDGEINTDATA_TEMP, Time, HostValues, 5; 6; 10
+STAT, 0, TRANSPOSE_EDGEDST, Time, HMAX, 1311
+STAT, 0, TRANSPOSE_EDGEDST, Time, HostValues, 1311; 1237; 1224
+STAT, 0, DistBench, GraphConstructTime, HMAX, 4721
+STAT, 0, DistBench, GraphConstructTime, HostValues, 3926; 4721; 4273
+STAT, 0, ResetGraph_0, Time, HMAX, 67
+STAT, 0, ResetGraph_0, Time, HostValues, 42; 46; 67
+STAT, 0, InitializeGraph_0, Time, HMAX, 724
+STAT, 0, InitializeGraph_0, Time, HostValues, 510; 601; 724
+STAT, 0, Gluon, BroadcastSendBytes_InitializeGraph_0, HSUM, 20376532
+STAT, 0, Gluon, BroadcastSendBytes_InitializeGraph_0, HostValues, 3105808; 5668236; 11602488
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HSUM, 6
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HostValues, 2; 2; 2
+STAT, 0, Gluon, Sync_InitializeGraph_0, HMAX, 310
+STAT, 0, Gluon, Sync_InitializeGraph_0, HostValues, 310; 271; 111
+STAT, 0, Gluon, ReduceSendBytes_PageRank_0, HSUM, 1407190276
+STAT, 0, Gluon, ReduceSendBytes_PageRank_0, HostValues, 602874308; 546434920; 257881048
+STAT, 0, Gluon, ReduceNumMessages_PageRank_0, HSUM, 726
+STAT, 0, Gluon, ReduceNumMessages_PageRank_0, HostValues, 242; 242; 242
+STAT, 0, Gluon, Sync_PageRank_0, HMAX, 17000
+STAT, 0, Gluon, Sync_PageRank_0, HostValues, 17000; 11521; 5356
+STAT, 0, PageRank_delta_0, Time, HMAX, 4849
+STAT, 0, PageRank_delta_0, Time, HostValues, 1928; 2660; 4849
+STAT, 0, RESET:MIRRORS_0, Time, HMAX, 1143
+STAT, 0, RESET:MIRRORS_0, Time, HostValues, 1143; 1020; 328
+STAT, 0, PageRank_0, Time, HMAX, 46179
+STAT, 0, PageRank_0, Time, HostValues, 32689; 39162; 46179
+STAT, 0, PageRank, NumWorkItems_0, HSUM, 8348246533
+STAT, 0, PageRank, NumWorkItems_0, HostValues, 2782754128; 2782744085; 2782748320
+STAT, 0, PageRank, NumIterations_0, HMAX, 121
+STAT, 0, PageRank, NumIterations_0, HostValues, 121; 121; 121
+STAT, 0, PageRank, Timer_0, HMAX, 56976
+STAT, 0, PageRank, Timer_0, HostValues, 56976; 56976; 56976
+STAT, 0, PageRank, TimerTotal, HMAX, 62793
+STAT, 0, PageRank, TimerTotal, HostValues, 62789; 62793; 62793
+STAT, 0, PageRankSanity, Time, HMAX, 46
+STAT, 0, PageRankSanity, Time, HostValues, 6; 13; 46
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 2.09265
+STAT, 0, Gluon, ReplicationFactor, HostValues, 2.09265
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 3
+PARAM, 0, DistBench, Hosts, HostValues, 3
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, be15bc9a-89f7-42db-a443-cf33faec115c
+PARAM, 0, DistBench, Run_UUID, HostValues, be15bc9a-89f7-42db-a443-cf33faec115c
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi
+PARAM, 0, PageRank, Max Iterations, HOST_0, 1000
+PARAM, 0, PageRank, Max Iterations, HostValues, 1000
+PARAM, 0, PageRank, Tolerance, HOST_0, 1e-06
+PARAM, 0, PageRank, Tolerance, HostValues, 1e-06
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0

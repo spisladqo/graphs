@@ -1,0 +1,142 @@
+# command: mpirun -n 6 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: PageRank - Compiler Generated Distributed Heterogeneous
+PageRank Residual Pull version on Distributed Galois.
+
+[2] Master distribution time : 0.004202 seconds to read 368 bytes in 46 seeks (0.0875773 MBPS)
+[2] Starting graph reading.
+[3] Master distribution time : 0.004213 seconds to read 360 bytes in 43 seeks (0.0854498 MBPS)
+[3] Starting graph reading.
+[4] Master distribution time : 0.000131 seconds to read 360 bytes in 45 seeks (2.74809 MBPS)
+[4] Starting graph reading.
+[5] Master distribution time : 0.003897 seconds to read 344 bytes in 41 seeks (0.088273 MBPS)
+[5] Starting graph reading.
+[0] Master distribution time : 0.001387 seconds to read 184 bytes in 23 seeks (0.13266 MBPS)
+[0] Starting graph reading.
+[1] Master distribution time : 0.000222 seconds to read 368 bytes in 46 seeks (1.65766 MBPS)
+[1] Starting graph reading.
+[0] Reading graph complete.
+[4] Reading graph complete.
+[1] Reading graph complete.
+[5] Reading graph complete.
+[2] Reading graph complete.
+[3] Reading graph complete.
+[0] Edge inspection time: 0.108327 seconds to read 51691600 bytes (477.181 MBPS)
+[1] Edge inspection time: 0.125477 seconds to read 51639360 bytes (411.544 MBPS)
+[2] Edge inspection time: 0.144003 seconds to read 51661796 bytes (358.755 MBPS)
+[3] Edge inspection time: 0.162373 seconds to read 51663168 bytes (318.176 MBPS)
+[4] Edge inspection time: 0.18123 seconds to read 51669772 bytes (285.106 MBPS)
+[5] Edge inspection time: 0.198033 seconds to read 51656704 bytes (260.849 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.1402 seconds to read 51691600 bytes (368.699 MBPS)
+[1] Edge loading time: 0.139372 seconds to read 51639360 bytes (370.515 MBPS)
+[2] Edge loading time: 0.14129 seconds to read 51661796 bytes (365.644 MBPS)
+[3] Edge loading time: 0.140217 seconds to read 51663168 bytes (368.452 MBPS)
+[4] Edge loading time: 0.139199 seconds to read 51669772 bytes (371.194 MBPS)
+[5] Edge loading time: 0.13982 seconds to read 51656704 bytes (369.451 MBPS)
+[0] Graph construction complete.
+[1] Graph construction complete.
+[2] Graph construction complete.
+[3] Graph construction complete.
+[4] Graph construction complete.
+[5] Graph construction complete.
+[1] InitializeGraph::go called
+[3] InitializeGraph::go called
+[2] InitializeGraph::go called
+[4] InitializeGraph::go called
+[0] InitializeGraph::go called
+[5] InitializeGraph::go called
+[1] PageRank::go run 0 called
+[3] PageRank::go run 0 called
+[2] PageRank::go run 0 called
+[4] PageRank::go run 0 called
+[5] PageRank::go run 0 called
+[0] PageRank::go run 0 called
+Max rank is 1.72641
+Min rank is 0.15
+Rank sum is 4.19427e+06
+Residual sum is 0
+# nodes with residual over 1e-06 (tolerance) is 0
+Max residual is 1.17549e-38
+Min residual is 0
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 141
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 140; 139; 140; 139; 139; 141
+STAT, 0, dGraph_Generic, TIMER_GRAPH_TRANSPOSE, HMAX, 416
+STAT, 0, dGraph_Generic, TIMER_GRAPH_TRANSPOSE, HostValues, 398; 404; 400; 402; 416; 405
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 198
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 108; 125; 162; 181; 198; 144
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 48
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 43; 47; 48; 48; 48; 47
+STAT, 0, TRANSPOSE_EDGEINTDATA_COPY, Time, HMAX, 8
+STAT, 0, TRANSPOSE_EDGEINTDATA_COPY, Time, HostValues, 8; 8; 7; 8; 7; 8
+STAT, 0, TRANSPOSE_EDGEINTDATA_INC, Time, HMAX, 181
+STAT, 0, TRANSPOSE_EDGEINTDATA_INC, Time, HostValues, 173; 174; 172; 171; 181; 177
+STAT, 0, TRANSPOSE_EDGEINTDATA_SET, Time, HMAX, 1
+STAT, 0, TRANSPOSE_EDGEINTDATA_SET, Time, HostValues, 1; 1; 1; 1; 1; 1
+STAT, 0, TRANSPOSE_EDGEINTDATA_TEMP, Time, HMAX, 1
+STAT, 0, TRANSPOSE_EDGEINTDATA_TEMP, Time, HostValues, 1; 1; 1; 1; 1; 1
+STAT, 0, TRANSPOSE_EDGEDST, Time, HMAX, 222
+STAT, 0, TRANSPOSE_EDGEDST, Time, HostValues, 212; 217; 214; 217; 222; 215
+STAT, 0, DistBench, GraphConstructTime, HMAX, 966
+STAT, 0, DistBench, GraphConstructTime, HostValues, 843; 876; 915; 933; 966; 902
+STAT, 0, ResetGraph_0, Time, HMAX, 13
+STAT, 0, ResetGraph_0, Time, HostValues, 12; 12; 12; 13; 12; 12
+STAT, 0, InitializeGraph_0, Time, HMAX, 154
+STAT, 0, InitializeGraph_0, Time, HostValues, 151; 153; 154; 154; 153; 153
+STAT, 0, Gluon, BroadcastSendBytes_InitializeGraph_0, HSUM, 87680
+STAT, 0, Gluon, BroadcastSendBytes_InitializeGraph_0, HostValues, 11604; 18344; 15056; 18808; 11576; 12292
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HSUM, 20
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HostValues, 3; 3; 3; 5; 2; 4
+STAT, 0, Gluon, Sync_InitializeGraph_0, HMAX, 3
+STAT, 0, Gluon, Sync_InitializeGraph_0, HostValues, 3; 1; 1
+STAT, 0, Gluon, ReduceSendBytes_PageRank_0, HSUM, 6434156
+STAT, 0, Gluon, ReduceSendBytes_PageRank_0, HostValues, 873120; 1389080; 893772; 1381536; 844564; 1052084
+STAT, 0, Gluon, ReduceNumMessages_PageRank_0, HSUM, 1540
+STAT, 0, Gluon, ReduceNumMessages_PageRank_0, HostValues, 231; 231; 231; 385; 154; 308
+STAT, 0, Gluon, Sync_PageRank_0, HMAX, 72
+STAT, 0, Gluon, Sync_PageRank_0, HostValues, 2; 23; 4; 50; 21; 72
+STAT, 0, PageRank_delta_0, Time, HMAX, 696
+STAT, 0, PageRank_delta_0, Time, HostValues, 696; 696; 695; 695; 691; 696
+STAT, 0, PageRank_0, Time, HMAX, 5093
+STAT, 0, PageRank_0, Time, HostValues, 5080; 5028; 5093; 5084; 5091; 5032
+STAT, 0, PageRank, NumWorkItems_0, HSUM, 4675316492
+STAT, 0, PageRank, NumWorkItems_0, HostValues, 779220442; 779218902; 779220134; 779218825; 779218902; 779219287
+STAT, 0, PageRank, NumIterations_0, HMAX, 77
+STAT, 0, PageRank, NumIterations_0, HostValues, 77; 77; 77; 77; 77; 77
+STAT, 0, PageRank, Timer_0, HMAX, 5919
+STAT, 0, PageRank, Timer_0, HostValues, 5919; 5919; 5919; 5919; 5919; 5919
+STAT, 0, PageRank, TimerTotal, HMAX, 7070
+STAT, 0, PageRank, TimerTotal, HostValues, 7066; 7065; 7069; 7065; 7069; 7070
+STAT, 0, PageRankSanity, Time, HMAX, 12
+STAT, 0, PageRankSanity, Time, HostValues, 12; 11; 11; 11; 11; 11
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.00521
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.00521
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 6
+PARAM, 0, DistBench, Hosts, HostValues, 6
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, 0732efea-dd10-4ea9-a35a-d85b77a8d458
+PARAM, 0, DistBench, Run_UUID, HostValues, 0732efea-dd10-4ea9-a35a-d85b77a8d458
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi; msi; msi; msi
+PARAM, 0, PageRank, Max Iterations, HOST_0, 1000
+PARAM, 0, PageRank, Max Iterations, HostValues, 1000
+PARAM, 0, PageRank, Tolerance, HOST_0, 1e-06
+PARAM, 0, PageRank, Tolerance, HostValues, 1e-06
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0; 0; 0; 0

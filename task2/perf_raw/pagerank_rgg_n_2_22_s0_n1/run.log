@@ -1,0 +1,84 @@
+# command: mpirun -n 1 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: PageRank - Compiler Generated Distributed Heterogeneous
+PageRank Residual Pull version on Distributed Galois.
+
+[0] Master distribution time : 5.3e-05 seconds to read 184 bytes in 21 seeks (3.4717 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[0] Edge inspection time: 0.536742 seconds to read 309982440 bytes (577.526 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.673354 seconds to read 309982440 bytes (460.356 MBPS)
+[0] Graph construction complete.
+[0] InitializeGraph::go called
+[0] PageRank::go run 0 called
+Max rank is 1.72641
+Min rank is 0.15
+Rank sum is 4.19416e+06
+Residual sum is 0
+# nodes with residual over 1e-06 (tolerance) is 0
+Max residual is 1.17549e-38
+Min residual is 0
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 673
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 673
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 536
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 536
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 209
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 209
+STAT, 0, DistBench, GraphConstructTime, HMAX, 2013
+STAT, 0, DistBench, GraphConstructTime, HostValues, 2013
+STAT, 0, ResetGraph_0, Time, HMAX, 56
+STAT, 0, ResetGraph_0, Time, HostValues, 56
+STAT, 0, InitializeGraph_0, Time, HMAX, 741
+STAT, 0, InitializeGraph_0, Time, HostValues, 741
+STAT, 0, Gluon, ReduceNumMessages_InitializeGraph_0, HSUM, 0
+STAT, 0, Gluon, ReduceNumMessages_InitializeGraph_0, HostValues, 0
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HSUM, 0
+STAT, 0, Gluon, BroadcastNumMessages_InitializeGraph_0, HostValues, 0
+STAT, 0, Gluon, BroadcastNumMessages_PageRank_0, HSUM, 0
+STAT, 0, Gluon, BroadcastNumMessages_PageRank_0, HostValues, 0
+STAT, 0, PageRank_delta_0, Time, HMAX, 2768
+STAT, 0, PageRank_delta_0, Time, HostValues, 2768
+STAT, 0, PageRank_0, Time, HMAX, 25062
+STAT, 0, PageRank_0, Time, HostValues, 25062
+STAT, 0, PageRank, NumWorkItems_0, HSUM, 4675316492
+STAT, 0, PageRank, NumWorkItems_0, HostValues, 4675316492
+STAT, 0, PageRank, NumIterations_0, HMAX, 77
+STAT, 0, PageRank, NumIterations_0, HostValues, 77
+STAT, 0, PageRank, Timer_0, HMAX, 27927
+STAT, 0, PageRank, Timer_0, HostValues, 27927
+STAT, 0, PageRank, TimerTotal, HMAX, 30791
+STAT, 0, PageRank, TimerTotal, HostValues, 30791
+STAT, 0, PageRankSanity, Time, HMAX, 51
+STAT, 0, PageRankSanity, Time, HostValues, 51
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/pagerank/pagerank-pull-dist /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.tgr -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 1
+PARAM, 0, DistBench, Hosts, HostValues, 1
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, cc1e84f4-8f1c-47aa-9cc6-14b64b65dc6a
+PARAM, 0, DistBench, Run_UUID, HostValues, cc1e84f4-8f1c-47aa-9cc6-14b64b65dc6a
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/rgg_n_2_22_s0/rgg_n_2_22_s0.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi
+PARAM, 0, PageRank, Max Iterations, HOST_0, 1000
+PARAM, 0, PageRank, Max Iterations, HostValues, 1000
+PARAM, 0, PageRank, Tolerance, HOST_0, 1e-06
+PARAM, 0, PageRank, Tolerance, HostValues, 1e-06
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0
