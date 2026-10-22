@@ -1,0 +1,84 @@
+# command: mpirun -n 2 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.wgr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: SSSP - Distributed Heterogeneous with worklist.
+Variant of Chaotic relaxation SSSP on Distributed Galois.
+
+[0] Master distribution time : 4.7e-05 seconds to read 184 bytes in 21 seeks (3.91489 MBPS)
+[0] Starting graph reading.
+[1] Master distribution time : 0.002659 seconds to read 360 bytes in 44 seeks (0.135389 MBPS)
+[1] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[0] Edge inspection time: 0.35005 seconds to read 150275200 bytes (429.296 MBPS)
+[1] Edge inspection time: 0.457794 seconds to read 201187484 bytes (439.472 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 1.816 seconds to read 287226008 bytes (158.164 MBPS)
+[0] Graph construction complete.
+[1] Edge loading time: 1.69727 seconds to read 338138240 bytes (199.225 MBPS)
+[1] Graph construction complete.
+[1] InitializeGraph::go called
+[0] InitializeGraph::go called
+[0] SSSP::go run 0 called
+[1] SSSP::go run 0 called
+Number of nodes visited from source 3552590 is 4400347
+Max distance from source 3552590 is 15
+Average distances on visited nodes is 5.88878
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 1816
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 1816; 1697
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 457
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 350; 457
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 205
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 194; 205
+STAT, 0, DistBench, GraphConstructTime, HMAX, 3114
+STAT, 0, DistBench, GraphConstructTime, HostValues, 2937; 3114
+STAT, 0, InitializeGraph_0, Time, HMAX, 61
+STAT, 0, InitializeGraph_0, Time, HostValues, 41; 61
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HSUM, 23877640
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HostValues, 17597400; 6280240
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HSUM, 20
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HostValues, 10; 10
+STAT, 0, Gluon, Sync_SSSP_0, HMAX, 906
+STAT, 0, Gluon, Sync_SSSP_0, HostValues, 906; 265
+STAT, 0, SSSP, NumWorkItems_0, HSUM, 136070355
+STAT, 0, SSSP, NumWorkItems_0, HostValues, 60011331; 76059024
+STAT, 0, SSSP, NumIterations_0, HMAX, 10
+STAT, 0, SSSP, NumIterations_0, HostValues, 10; 10
+STAT, 0, SSSP, Timer_0, HMAX, 2363
+STAT, 0, SSSP, Timer_0, HostValues, 2363; 2363
+STAT, 0, SSSP, TimerTotal, HMAX, 5667
+STAT, 0, SSSP, TimerTotal, HostValues, 5663; 5667
+STAT, 0, SSSP_0, Time, HMAX, 2086
+STAT, 0, SSSP_0, Time, HostValues, 1335; 2086
+STAT, 0, SSSPSanityCheck, Time, HMAX, 37
+STAT, 0, SSSPSanityCheck, Time, HostValues, 7; 37
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.62306
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.62306
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.wgr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.wgr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 2
+PARAM, 0, DistBench, Hosts, HostValues, 2
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, 96e8b252-e03e-4ec2-9a9a-e51b4436295e
+PARAM, 0, DistBench, Run_UUID, HostValues, 96e8b252-e03e-4ec2-9a9a-e51b4436295e
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.wgr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.wgr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi
+PARAM, 0, SSSP, Max Iterations, HOST_0, 10000
+PARAM, 0, SSSP, Max Iterations, HostValues, 10000
+PARAM, 0, SSSP, Source Node ID, HOST_0, 3552590
+PARAM, 0, SSSP, Source Node ID, HostValues, 3552590
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0

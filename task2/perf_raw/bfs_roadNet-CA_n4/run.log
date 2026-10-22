@@ -1,0 +1,99 @@
+# command: mpirun -n 4 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[1] Master distribution time : 0.002726 seconds to read 352 bytes in 44 seeks (0.129127 MBPS)
+[1] Starting graph reading.
+[2] Master distribution time : 0.00277 seconds to read 344 bytes in 42 seeks (0.124188 MBPS)
+[2] Starting graph reading.
+[3] Master distribution time : 0.002417 seconds to read 328 bytes in 40 seeks (0.135705 MBPS)
+[3] Starting graph reading.
+[0] Master distribution time : 5.1e-05 seconds to read 176 bytes in 21 seeks (3.45098 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[3] Reading graph complete.
+[0] Edge inspection time: 0.024254 seconds to read 13371520 bytes (551.312 MBPS)
+[1] Edge inspection time: 0.025971 seconds to read 13341336 bytes (513.701 MBPS)
+[2] Edge inspection time: 0.028553 seconds to read 13448204 bytes (470.991 MBPS)
+[3] Edge inspection time: 0.030965 seconds to read 13512260 bytes (436.372 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.023631 seconds to read 13371520 bytes (565.847 MBPS)
+[0] Graph construction complete.
+[1] Edge loading time: 0.02338 seconds to read 13341336 bytes (570.63 MBPS)
+[1] Graph construction complete.
+[2] Edge loading time: 0.023609 seconds to read 13448204 bytes (569.622 MBPS)
+[2] Graph construction complete.
+[3] Edge loading time: 0.023633 seconds to read 13512260 bytes (571.754 MBPS)
+[3] Graph construction complete.
+[2] InitializeGraph::go called
+[3] InitializeGraph::go called
+[0] InitializeGraph::go called
+[1] InitializeGraph::go called
+[3] BFS::go run 0 called
+[0] BFS::go run 0 called
+[2] BFS::go run 0 called
+[1] BFS::go run 0 called
+Number of nodes visited from source 933561 is 1957027
+Max distance from source 933561 is 701
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 23
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 23; 23; 23; 23
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 30
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 24; 25; 28; 30
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 7
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 7; 7; 7; 7
+STAT, 0, DistBench, GraphConstructTime, HMAX, 152
+STAT, 0, DistBench, GraphConstructTime, HostValues, 140; 146; 150; 152
+STAT, 0, InitializeGraph_0, Time, HMAX, 7
+STAT, 0, InitializeGraph_0, Time, HostValues, 7; 7; 7; 7
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HSUM, 2499952
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HostValues, 746820; 762572; 547792; 442768
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 4740
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 1185; 1185; 1185; 1185
+STAT, 0, Gluon, Sync_BFS_0, HMAX, 534
+STAT, 0, Gluon, Sync_BFS_0, HostValues, 281; 534; 423; 471
+STAT, 0, BFS, NumWorkItems_0, HSUM, 131483846
+STAT, 0, BFS, NumWorkItems_0, HostValues, 41544423; 28136297; 32162790; 29640336
+STAT, 0, BFS, NumIterations_0, HMAX, 395
+STAT, 0, BFS, NumIterations_0, HostValues, 395; 395; 395; 395
+STAT, 0, BFS, Timer_0, HMAX, 1676
+STAT, 0, BFS, Timer_0, HostValues, 1676; 1676; 1676; 1676
+STAT, 0, BFS, TimerTotal, HMAX, 1842
+STAT, 0, BFS, TimerTotal, HostValues, 1839; 1842; 1842; 1842
+STAT, 0, BFS_0, Time, HMAX, 1075
+STAT, 0, BFS_0, Time, HostValues, 1075; 818; 941; 905
+STAT, 0, BFSSanityCheck, Time, HMAX, 3
+STAT, 0, BFSSanityCheck, Time, HostValues, 3; 3; 3; 3
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.0092
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.0092
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 4
+PARAM, 0, DistBench, Hosts, HostValues, 4
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, f443cdf8-3029-4871-a217-f5232d23900c
+PARAM, 0, DistBench, Run_UUID, HostValues, f443cdf8-3029-4871-a217-f5232d23900c
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi; msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 933561
+PARAM, 0, BFS, Source Node ID, HostValues, 933561
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0; 0

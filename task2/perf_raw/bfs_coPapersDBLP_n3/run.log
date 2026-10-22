@@ -1,0 +1,91 @@
+# command: mpirun -n 3 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.gr -startNode=298864 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[1] Master distribution time : 0.002477 seconds to read 320 bytes in 38 seeks (0.129189 MBPS)
+[1] Starting graph reading.
+[2] Master distribution time : 0.002577 seconds to read 312 bytes in 38 seeks (0.121071 MBPS)
+[2] Starting graph reading.
+[0] Master distribution time : 4e-05 seconds to read 160 bytes in 18 seeks (4 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[0] Edge inspection time: 0.085384 seconds to read 42059524 bytes (492.593 MBPS)
+[1] Edge inspection time: 0.099556 seconds to read 42656656 bytes (428.469 MBPS)
+[2] Edge inspection time: 0.117719 seconds to read 45897404 bytes (389.89 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.169264 seconds to read 42059524 bytes (248.485 MBPS)
+[0] Graph construction complete.
+[1] Edge loading time: 0.197783 seconds to read 42656656 bytes (215.674 MBPS)
+[1] Graph construction complete.
+[2] Edge loading time: 0.17835 seconds to read 45897404 bytes (257.345 MBPS)
+[2] Graph construction complete.
+[2] InitializeGraph::go called
+[1] InitializeGraph::go called
+[0] InitializeGraph::go called
+[2] BFS::go run 0 called
+[1] BFS::go run 0 called
+[0] BFS::go run 0 called
+Number of nodes visited from source 298864 is 540486
+Max distance from source 298864 is 14
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 197
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 169; 197; 178
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 117
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 85; 99; 117
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 32
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 30; 31; 32
+STAT, 0, DistBench, GraphConstructTime, HMAX, 407
+STAT, 0, DistBench, GraphConstructTime, HostValues, 347; 398; 407
+STAT, 0, InitializeGraph_0, Time, HMAX, 6
+STAT, 0, InitializeGraph_0, Time, HostValues, 5; 5; 6
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HSUM, 6078840
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HostValues, 2450508; 2476336; 1151996
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 66
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 22; 22; 22
+STAT, 0, Gluon, Sync_BFS_0, HMAX, 84
+STAT, 0, Gluon, Sync_BFS_0, HostValues, 84; 75; 60
+STAT, 0, BFS, NumWorkItems_0, HSUM, 66228415
+STAT, 0, BFS, NumWorkItems_0, HostValues, 21310776; 22347152; 22570487
+STAT, 0, BFS, NumIterations_0, HMAX, 11
+STAT, 0, BFS, NumIterations_0, HostValues, 11; 11; 11
+STAT, 0, BFS, Timer_0, HMAX, 259
+STAT, 0, BFS, Timer_0, HostValues, 259; 259; 259
+STAT, 0, BFS, TimerTotal, HMAX, 691
+STAT, 0, BFS, TimerTotal, HostValues, 687; 691; 691
+STAT, 0, BFS_0, Time, HMAX, 187
+STAT, 0, BFS_0, Time, HostValues, 144; 159; 187
+STAT, 0, BFSSanityCheck, Time, HMAX, 2
+STAT, 0, BFSSanityCheck, Time, HostValues, 2
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 2.15971
+STAT, 0, Gluon, ReplicationFactor, HostValues, 2.15971
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.gr -startNode=298864 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.gr -startNode=298864 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 3
+PARAM, 0, DistBench, Hosts, HostValues, 3
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, c105522b-58cc-4c91-82ba-a0479b7b3a81
+PARAM, 0, DistBench, Run_UUID, HostValues, c105522b-58cc-4c91-82ba-a0479b7b3a81
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/coPapersDBLP/coPapersDBLP.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 298864
+PARAM, 0, BFS, Source Node ID, HostValues, 298864
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0

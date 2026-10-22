@@ -1,0 +1,71 @@
+# command: mpirun -n 1 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[0] Master distribution time : 0.00156 seconds to read 184 bytes in 21 seeks (0.117949 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[0] Edge inspection time: 0.603002 seconds to read 353536220 bytes (586.294 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.737734 seconds to read 353536220 bytes (479.219 MBPS)
+[0] Graph construction complete.
+[0] InitializeGraph::go called
+[0] BFS::go run 0 called
+Number of nodes visited from source 3552590 is 4400347
+Max distance from source 3552590 is 15
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 737
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 737
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 603
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 603
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 252
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 252
+STAT, 0, DistBench, GraphConstructTime, HMAX, 2233
+STAT, 0, DistBench, GraphConstructTime, HostValues, 2233
+STAT, 0, InitializeGraph_0, Time, HMAX, 60
+STAT, 0, InitializeGraph_0, Time, HostValues, 60
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 0
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 0
+STAT, 0, BFS, NumWorkItems_0, HSUM, 132745121
+STAT, 0, BFS, NumWorkItems_0, HostValues, 132745121
+STAT, 0, BFS, NumIterations_0, HMAX, 9
+STAT, 0, BFS, NumIterations_0, HostValues, 9
+STAT, 0, BFS, Timer_0, HMAX, 2530
+STAT, 0, BFS, Timer_0, HostValues, 2530
+STAT, 0, BFS, TimerTotal, HMAX, 4860
+STAT, 0, BFS, TimerTotal, HostValues, 4860
+STAT, 0, BFS_0, Time, HMAX, 2527
+STAT, 0, BFS_0, Time, HostValues, 2527
+STAT, 0, BFSSanityCheck, Time, HMAX, 34
+STAT, 0, BFSSanityCheck, Time, HostValues, 34
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr -startNode=3552590 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 1
+PARAM, 0, DistBench, Hosts, HostValues, 1
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, eda52be3-2a6c-46b3-9a70-a314ed957e23
+PARAM, 0, DistBench, Run_UUID, HostValues, eda52be3-2a6c-46b3-9a70-a314ed957e23
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/soc-LiveJournal1/soc-LiveJournal1.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 3552590
+PARAM, 0, BFS, Source Node ID, HostValues, 3552590
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0

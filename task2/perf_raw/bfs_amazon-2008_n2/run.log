@@ -1,0 +1,83 @@
+# command: mpirun -n 2 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.gr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[1] Master distribution time : 0.001938 seconds to read 312 bytes in 37 seeks (0.160991 MBPS)
+[1] Starting graph reading.
+[0] Master distribution time : 3.6e-05 seconds to read 160 bytes in 18 seeks (4.44444 MBPS)
+[0] Starting graph reading.
+[1] Reading graph complete.
+[0] Reading graph complete.
+[0] Edge inspection time: 0.028365 seconds to read 16448396 bytes (579.884 MBPS)
+[1] Edge inspection time: 0.0315 seconds to read 15950308 bytes (506.359 MBPS)
+Loading edge-data while creating edges
+[1] Edge loading time: 0.055318 seconds to read 15950308 bytes (288.338 MBPS)
+[1] Graph construction complete.
+[0] Edge loading time: 0.055209 seconds to read 16448396 bytes (297.93 MBPS)
+[0] Graph construction complete.
+[1] InitializeGraph::go called
+[0] InitializeGraph::go called
+[0] BFS::go run 0 called
+[1] BFS::go run 0 called
+Number of nodes visited from source 181919 is 735323
+Max distance from source 181919 is 30
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 55
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 55; 55
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 31
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 28; 31
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 8
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 8; 8
+STAT, 0, DistBench, GraphConstructTime, HMAX, 162
+STAT, 0, DistBench, GraphConstructTime, HostValues, 161; 162
+STAT, 0, InitializeGraph_0, Time, HMAX, 5
+STAT, 0, InitializeGraph_0, Time, HostValues, 5; 5
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HSUM, 3732612
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HostValues, 1949104; 1783508
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 50
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 25; 25
+STAT, 0, Gluon, Sync_BFS_0, HMAX, 42
+STAT, 0, Gluon, Sync_BFS_0, HostValues, 37; 42
+STAT, 0, BFS, NumWorkItems_0, HSUM, 19032327
+STAT, 0, BFS, NumWorkItems_0, HostValues, 9668471; 9363856
+STAT, 0, BFS, NumIterations_0, HMAX, 25
+STAT, 0, BFS, NumIterations_0, HostValues, 25; 25
+STAT, 0, BFS, Timer_0, HMAX, 198
+STAT, 0, BFS, Timer_0, HostValues, 198; 198
+STAT, 0, BFS, TimerTotal, HMAX, 379
+STAT, 0, BFS, TimerTotal, HostValues, 376; 379
+STAT, 0, BFS_0, Time, HMAX, 132
+STAT, 0, BFS_0, Time, HostValues, 132; 128
+STAT, 0, BFSSanityCheck, Time, HMAX, 2
+STAT, 0, BFSSanityCheck, Time, HostValues, 2; 1
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.32809
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.32809
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.gr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.gr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 2
+PARAM, 0, DistBench, Hosts, HostValues, 2
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, b937b654-8870-468c-b7c4-74202227bf01
+PARAM, 0, DistBench, Run_UUID, HostValues, b937b654-8870-468c-b7c4-74202227bf01
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 181919
+PARAM, 0, BFS, Source Node ID, HostValues, 181919
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0

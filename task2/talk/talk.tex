@@ -1,0 +1,340 @@
+% !TEX TS-program = xelatex
+% !TeX spellcheck = ru_RU
+% !TEX root = talk.tex
+
+\documentclass
+  [ russian
+  , aspectratio=1610
+  ] {beamer}
+
+\input{preamble.tex}
+\makeatletter
+
+\input{pretitle.tex}
+\input{title.tex}
+
+\newcommand{\academicGroup}{\my@title@group@ru}
+\newcommand{\advisorChair}{\my@title@chair@ru}
+\title[Масштабируемость D-Galois]{\my@title@title@ru}
+\author[\my@title@author@ru]{\my@title@author@ru, группа \academicGroup}
+\institute[СПбГУ]{}
+\date[2026]{}
+\newcommand{\defenseYear}{\my@title@year@ru}
+
+\makeatother
+
+\begin{document}
+{
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+    \vspace{15pt}
+    \begin{center}
+        \begin{tabular}{c}
+            \scriptsize{Санкт-Петербургский государственный университет} \\
+            \scriptsize{\advisorChair}
+        \end{tabular}
+        \titlepage
+    \end{center}
+
+    \btVFill
+
+    \begin{center}
+        \vspace{5pt}
+        \scriptsize{Санкт-Петербург\\ \defenseYear}
+    \end{center}
+\end{frame}
+}
+
+\begin{frame}
+    \frametitle{Постановка задачи}
+    \textbf{Цель}: оценить масштабируемость распределённого Galois (D-Galois)
+    по числу рангов на алгоритмах BFS, SSSP, TC и PageRank
+    и объяснить, от чего она зависит
+\end{frame}
+
+\begin{frame}
+    \frametitle{Как считает D-Galois}
+    \begin{columns}[T]
+        \begin{column}{.5\textwidth}
+            \textbf{Разбиение OEC}: каждый ранг получает непрерывный блок номеров вершин
+            (\emph{мастера}) со всеми их исходящими рёбрами. Блоки подбираются так, чтобы рёбер
+            было поровну
+
+            \medskip
+            Конец ребра на чужом ранге~--- \emph{зеркало}, локальная копия чужой вершины
+
+            \medskip
+            \textbf{RF} (replication factor)~--- среднее число копий вершины по всем рангам
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \textbf{Раунд} в режиме BSP (\texttt{--exec=Sync}):
+            \begin{enumerate}
+                \item счёт: ранг проходит своих мастеров
+                \item sync: зеркала отправляют изменения мастерам
+                \item Allreduce: осталась ли работа у кого-нибудь
+            \end{enumerate}
+
+            \medskip
+            Следующий раунд начинается, когда все ранги закончили предыдущий
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Стенд и методика}
+    \begin{columns}[T]
+        \begin{column}{.45\textwidth}
+            \textbf{Оборудование}
+            \begin{itemize}
+                \item Intel Core i7-10750H: 6 ядер, 12 потоков, 8~ГБ DDR4
+                \item Ubuntu 24.04, GCC 13.3, Open MPI 4.1.6
+                \item Galois, коммит \texttt{b67f9420}
+            \end{itemize}
+        \end{column}
+        \begin{column}{.55\textwidth}
+            \textbf{Методика}
+            \begin{itemize}
+                \item $P = 1\ldots6$ MPI-рангов по 1 потоку, каждый на своём ядре
+                      (\texttt{--map-by core --bind-to core})
+                \item Режим \texttt{--exec=Sync}, \texttt{-t=1}
+                \item Время~--- медиана прогонов внутри Galois
+                      (\texttt{-runs=10} для BFS и SSSP, \texttt{-runs=15} для
+                      PageRank и TC), без чтения и разбиения графа
+                \item Для BFS и SSSP источник~--- вершина медианной степени
+                \item Промахи кэшей~--- \texttt{perf stat}
+                      (L1-dcache-load-misses, LLC-load-misses)
+                \item Граф фиксирован, растёт число рангов $P$:
+                      ускорение $S(P) = T(1)/T(P)$, идеал $S(P) = P$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Набор данных}
+    \begin{center}
+        \footnotesize
+        \setlength{\tabcolsep}{4.5pt}
+        \begin{tabular}{lrrrlr}
+            \toprule
+            Граф & Вершин & Рёбер & Ср. степень & Тип графа & RF ($P=6$) \\
+            \midrule
+            belgium\_osm      & 1\,441\,295 & 3\,099\,940  & 2.15 & дорожный  & 1.18 \\
+            roadNet-CA        & 1\,971\,281 & 5\,533\,214  & 2.81 & дорожный  & 1.02 \\
+            rgg\_n\_2\_22\_s0  & 4\,194\,304 & 60\,718\,396 & 14.48 & случ. геом. & 1.01 \\
+            soc-LiveJournal1  & 4\,847\,571 & 68\,993\,773 & 14.23 & соцсеть   & 3.05 \\
+            coPapersDBLP      & 540\,486   & 30\,491\,458 & 56.4 & соавторство & 1.82 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+
+    \begin{itemize}
+        \item Дорожные графы (belgium\_osm, roadNet-CA): степень вершин почти одинаковая
+        \item RGG: $2^{22}$ случайных точек в квадрате, ребро~--- если точки ближе $r$
+        \item LiveJournal: соцсеть, $1\%$ вершин держат существенную долю рёбер
+        \item coPapersDBLP: сеть соавторства, есть хабы
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{Ускорение всех алгоритмов}
+    \centering
+    \includegraphics[width=\textwidth,height=.52\textheight,keepaspectratio]{figures/speedup_all.pdf}
+    \figcap{Ускорение $S(P) = T(1)/T(P)$ при $P = 1\ldots6$ рангах, пунктир~--- идеал $S = P$,
+    в легенде~--- ускорение при $P = 6$}
+
+    \begin{itemize}
+        \item Подсчёт треугольников делится почти идеально на малых графах:
+              roadNet-CA $S(6) = 4.90$, RGG 4.49
+        \item PageRank на roadNet-CA: $S(6) = 4.45$
+        \item BFS и SSSP: $S(6) = 1.3\ldots2.6$, лучше всего на belgium\_osm
+        \item Хуже всех LiveJournal: $S(6) = 1.26$ (BFS), $1.31$ (SSSP) и $1.78$ (PageRank)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{BFS: время по графам}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/time_bfs_graphs.pdf}
+    \figcap{BFS: время при $P = 1\ldots6$ рангах, своя панель на каждый граф;
+    пунктир~--- идеал $T(1)/P$, в заголовке~--- ускорение при $P = 6$}
+
+    \begin{itemize}
+        \item belgium\_osm: $4.54 \to 1.79$~с, ускорение 2.53~--- лучший результат
+        \item Ускорение падает с ростом средней степени: 2.5 (belgium\_osm) $\to$ 14.5 (RGG)
+        \item На LiveJournal ($2.76 \to 2.18$~с) и RGG ($10.98 \to 6.24$~с) время
+              перестаёт падать после $P = 2$: барьер в каждом раунде и обмен зеркалами
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{BFS: время по фазам при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/phases_bfs.pdf}
+    \figcap{BFS: фазы при $P = 1\ldots6$ рангах, медиана 10 прогонов; обмен~---
+    \texttt{Gluon Sync\_BFS\_*}, вычисления и ожидание~--- остаток \texttt{Timer\_N};
+    над столбцом~--- время ранга (таймеры Galois пишут целые мс,
+    при $P = 1$ обмен не виден)}
+
+    \begin{itemize}
+        \item belgium\_osm: обмен 10--16\%, $S(6) = 2.53$~--- деление работы перевешивает барьер
+        \item RGG: уже при $P \ge 3$ обмен занимает 65--76\%, ускорение падает до 1.76
+        \item LiveJournal: 39--49\% на всех $P$, $S(6) = 1.26$~--- зеркала хабов на всех рангах
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{BFS: промахи кэшей при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/cache_bfs.pdf}
+    \figcap{BFS: промахи кэшей при $P = 1\ldots6$; столбец разбит на промахи L1
+    (\texttt{L1-dcache-load-misses}) и промахи LLC (\texttt{LLC-load-misses}),
+    слева~--- миллионы промахов; счётчики \texttt{perf stat} снимались отдельно
+    для каждого ранга, в столбце~--- их сумма; в заголовке~--- во сколько раз
+    выросли промахи L1 при $P = 6$}
+
+    \begin{itemize}
+        \item belgium\_osm: промахи L1 растут с 217 до 324~млн ($\times 1.49$),
+              LLC~--- с 6.1 до 13.3~млн ($\times 2.18$)
+        \item RGG: промахи почти не растут ($\times 1.10$ по L1, $\times 1.24$ по LLC)
+        \item LiveJournal: промахи растут втрое ($\times 3.08$) и в пять раз
+              ($\times 5.24$)~--- хабы копируются на все ранги
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{BFS: работа по рангам при $P = 6$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/bfs_hosts.pdf}
+    \figcap{BFS при $P = 6$: время фаз каждого ранга за прогон}
+
+    \begin{itemize}
+        \item RGG: ранги 0 и 3 получают 335 и 284 млн обработок, остальные~--- 11--38 млн;
+              ранги 1, 2 и 4 по 4.2--4.7~с (67--76\% времени) проводят в обмене, $S(6) = 1.76$
+        \item LiveJournal: обмен 0.73--0.98~с на всех рангах (33--45\% времени);
+              темп задаёт ранг 5 (1.33~с вычислений)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{SSSP: время по графам}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/time_sssp_graphs.pdf}
+    \figcap{SSSP: время при $P = 1\ldots6$ рангах, своя панель на каждый граф;
+    пунктир~--- идеал $T(1)/P$}
+
+    \begin{itemize}
+        \item belgium\_osm: $5.60 \to 2.13$~с, ускорение 2.63~--- картина повторяет BFS
+        \item RGG: $12.51 \to 7.55$~с, ускорение 1.66
+        \item LiveJournal: $3.08 \to 2.35$~с, ускорение 1.31~--- почти не масштабируется
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{SSSP: время по фазам при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/phases_sssp.pdf}
+    \figcap{SSSP: фазы при $P = 1\ldots6$ рангах, медиана 10 прогонов; обмен~---
+    \texttt{Gluon Sync\_SSSP\_*}, вычисления и ожидание~--- остаток \texttt{Timer\_N};
+    над столбцом~--- время ранга}
+
+    \begin{itemize}
+        \item belgium\_osm: обмен 12--18\%, $S(6) = 2.63$~--- картина повторяет BFS
+        \item RGG: при $P \ge 3$ обмен 68--77\%, $S(6) = 1.66$~--- как и в BFS, барьер после $P = 2$
+        \item LiveJournal: 39--49\%, $S(6) = 1.31$~--- почти не масштабируется
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{SSSP: промахи кэшей при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/cache_sssp.pdf}
+    \figcap{SSSP: промахи кэшей при $P = 1\ldots6$; столбец разбит на промахи L1
+    (\texttt{L1-dcache-load-misses}) и промахи LLC (\texttt{LLC-load-misses}),
+    слева~--- миллионы промахов; счётчики \texttt{perf stat} снимались отдельно
+    для каждого ранга, в столбце~--- их сумма; в заголовке~--- во сколько раз
+    выросли промахи L1 при $P = 6$}
+
+    \begin{itemize}
+        \item belgium\_osm: промахи L1 растут с 246 до 351~млн ($\times 1.43$),
+              LLC~--- с 8.5 до 16.6~млн ($\times 1.97$)
+        \item RGG: промахи почти не растут ($\times 1.09$ по L1, $\times 1.13$ по LLC)
+        \item LiveJournal: промахи растут в 2.7 раза ($\times 2.70$) и почти
+              в пять раз ($\times 4.77$)~--- картина повторяет BFS
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{PageRank: время по графам}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/time_pagerank_graphs.pdf}
+    \figcap{PageRank: время при $P = 1\ldots6$ рангах, своя панель на каждый граф;
+    пунктир~--- идеал $T(1)/P$}
+
+    \begin{itemize}
+        \item roadNet-CA: $6.39 \to 1.44$~с, ускорение 4.45~--- лучший результат среди обходов
+        \item На однородном графе (дороги Калифорнии) время падает почти линейно
+        \item RGG: $29.02 \to 7.47$~с, ускорение 3.88
+        \item LiveJournal: $107.64 \to 60.42$~с, ускорение 1.78~--- почти не масштабируется (хабы)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{PageRank: время по фазам при разном $P$}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/phases_pagerank.pdf}
+    \figcap{PageRank: фазы при $P = 1\ldots6$ рангах, медиана 15 прогонов; обмен~---
+    \texttt{Gluon Sync\_PageRank\_*}, вычисления и ожидание~--- остаток \texttt{Timer\_N};
+    над столбцом~--- время ранга}
+
+    \begin{itemize}
+        \item RGG: обмен $\le 2\%$, почти всё время~--- вычисления и ожидание, $S(6) = 3.88$
+        \item roadNet-CA: обмен 3--6\%, $S(6) = 4.45$~--- лучший результат среди обходов
+        \item LiveJournal: 29--35\%, $S(6) = 1.78$~--- обмен и хабы съедают выигрыш
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[shrink]
+    \frametitle{Подсчёт треугольников: время по графам}
+    \centering
+    \includegraphics[width=\textwidth,height=.55\textheight,keepaspectratio]{figures/time_tc_graphs.pdf}
+    \figcap{TC: время при $P = 1\ldots6$ рангах, своя панель на каждый граф;
+    пунктир~--- идеал $T(1)/P$}
+
+    \begin{itemize}
+        \item На малых графах масштабируется почти идеально: roadNet-CA $S(6) = 4.90$,
+              RGG 4.49~--- один проход по мастерам и одно сложение (Allreduce),
+              раундов и обмена нет
+        \item coPapersDBLP ($30.5$ млн рёбер): $29.0 \to 13.0$~с, $S(6) = 2.24$
+        \item Работа перекошена: времена рангов при $P = 6$~---
+              $10.3/13.3/11.6/8.9/6.0/3.1$~с, максимальная степень вершины $6598$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Результаты}
+    \begin{itemize}
+        \item Собран стенд: Galois, скрипты запуска и обработки, графики по всем прогонам
+        \item Измерены BFS, SSSP, PageRank и TC при $P = 1\ldots6$ на 5 графах
+              (по 10--15 прогонов на точку)
+        \item Найдено, от чего зависит ускорение:
+              \begin{itemize}
+                  \item TC делится почти идеально на малых графах ($S(6) = 4.5\ldots4.9$):
+                        нет раундов и обмена; на coPapersDBLP с хабами~--- $2.24$
+                  \item PageRank делится хорошо на однородных графах (roadNet-CA: 4.45),
+                        но плохо на графе с хабами (LiveJournal: 1.78)
+                  \item BFS и SSSP ограничены барьером в каждом раунде и обменом зеркалами:
+                        $S(6) = 1.3\ldots2.6$
+                  \item чем больше средняя степень, тем хуже ускорение:
+                        2.5 (belgium\_osm) $\to$ 14.5 (RGG)
+                  \item графи с хабами (LiveJournal) почти не ускоряются: 1.26 и 1.31
+                  \item промахи кэшей растут с числом рангов ($\times 1.1\ldots5.2$):
+                        на LiveJournal копии хабов на всех рангах дают
+                        втрое больше промахов, чем при $P = 1$
+              \end{itemize}
+        \item Ограничения: всё мерили на одной машине (обмен через общую память)
+    \end{itemize}
+\end{frame}
+
+\end{document}

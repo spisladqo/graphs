@@ -1,0 +1,6 @@
+graphs: belgium_osm, rgg_n_2_22_s0, soc-LiveJournal1
+ns: [1, 2, 3, 4, 5, 6]
+algos: ['bfs', 'sssp']
+events: L1-dcache-load-misses,LLC-load-misses
+=== bfs belgium_osm n=1 ===
+  mpirun -n 1 --map-by core --bind-to core sh -c exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@" perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/belgium_osm/belgium_osm.gr -startNode=809626 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/belgium_osm/belgium_osm.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync

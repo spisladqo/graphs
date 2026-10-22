@@ -1,0 +1,108 @@
+# command: mpirun -n 5 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.wgr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: SSSP - Distributed Heterogeneous with worklist.
+Variant of Chaotic relaxation SSSP on Distributed Galois.
+
+[1] Master distribution time : 0.002954 seconds to read 328 bytes in 40 seeks (0.111036 MBPS)
+[1] Starting graph reading.
+[2] Master distribution time : 0.002955 seconds to read 320 bytes in 40 seeks (0.108291 MBPS)
+[2] Starting graph reading.
+[3] Master distribution time : 0.002958 seconds to read 320 bytes in 40 seeks (0.108181 MBPS)
+[3] Starting graph reading.
+[4] Master distribution time : 0.002956 seconds to read 304 bytes in 36 seeks (0.102842 MBPS)
+[4] Starting graph reading.
+[0] Master distribution time : 4.9e-05 seconds to read 168 bytes in 21 seeks (3.42857 MBPS)
+[0] Starting graph reading.
+[2] Reading graph complete.
+[3] Reading graph complete.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[4] Reading graph complete.
+[0] Edge inspection time: 0.019969 seconds to read 6543700 bytes (327.693 MBPS)
+[1] Edge inspection time: 0.020374 seconds to read 6636356 bytes (325.727 MBPS)
+[2] Edge inspection time: 0.022167 seconds to read 6488120 bytes (292.693 MBPS)
+[3] Edge inspection time: 0.024036 seconds to read 6368620 bytes (264.962 MBPS)
+[4] Edge inspection time: 0.025899 seconds to read 6361884 bytes (245.642 MBPS)
+Loading edge-data while creating edges
+[1] Edge loading time: 0.053483 seconds to read 10763056 bytes (201.243 MBPS)
+[1] Graph construction complete.
+[2] Edge loading time: 0.058673 seconds to read 10614808 bytes (180.915 MBPS)
+[3] Edge loading time: 0.058739 seconds to read 10495360 bytes (178.678 MBPS)
+[4] Edge loading time: 0.058586 seconds to read 10488560 bytes (179.028 MBPS)
+[0] Edge loading time: 0.060469 seconds to read 10670448 bytes (176.461 MBPS)
+[2] Graph construction complete.
+[3] Graph construction complete.
+[0] Graph construction complete.
+[4] Graph construction complete.
+[0] InitializeGraph::go called
+[3] InitializeGraph::go called
+[1] InitializeGraph::go called
+[4] InitializeGraph::go called
+[2] InitializeGraph::go called
+[4] SSSP::go run 0 called
+[0] SSSP::go run 0 called
+[3] SSSP::go run 0 called
+[1] SSSP::go run 0 called
+[2] SSSP::go run 0 called
+Number of nodes visited from source 181919 is 735323
+Max distance from source 181919 is 30
+Average distances on visited nodes is 11.2525
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 60
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 60; 53; 58; 58; 58
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 25
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 19; 20; 22; 24; 25
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 9
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 8; 8; 8; 8; 9
+STAT, 0, DistBench, GraphConstructTime, HMAX, 150
+STAT, 0, DistBench, GraphConstructTime, HostValues, 145; 140; 148; 149; 150
+STAT, 0, InitializeGraph_0, Time, HMAX, 4
+STAT, 0, InitializeGraph_0, Time, HostValues, 4; 3; 3; 3; 3
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HSUM, 8239952
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HostValues, 1777328; 1505716; 1663784; 1697228; 1595896
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HSUM, 560
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HostValues, 112; 112; 112; 112; 112
+STAT, 0, Gluon, Sync_SSSP_0, HMAX, 44
+STAT, 0, Gluon, Sync_SSSP_0, HostValues, 43; 40; 40; 43; 44
+STAT, 0, SSSP, NumWorkItems_0, HSUM, 19068685
+STAT, 0, SSSP, NumWorkItems_0, HostValues, 3840561; 3894830; 3843384; 3876253; 3613657
+STAT, 0, SSSP, NumIterations_0, HMAX, 28
+STAT, 0, SSSP, NumIterations_0, HostValues, 28; 28; 28; 28; 28
+STAT, 0, SSSP, Timer_0, HMAX, 162
+STAT, 0, SSSP, Timer_0, HostValues, 162; 162; 162; 162; 162
+STAT, 0, SSSP, TimerTotal, HMAX, 335
+STAT, 0, SSSP, TimerTotal, HostValues, 331; 335; 335; 335; 335
+STAT, 0, SSSP_0, Time, HMAX, 82
+STAT, 0, SSSP_0, Time, HostValues, 81; 80; 82; 82; 80
+STAT, 0, SSSPSanityCheck, Time, HMAX, 1
+STAT, 0, SSSPSanityCheck, Time, HostValues, 1; 1; 1; 1; 1
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.71583
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.71583
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.wgr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.wgr -startNode=181919 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 5
+PARAM, 0, DistBench, Hosts, HostValues, 5
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, dfb9456f-4d07-4dfd-bba3-55f4b6e17fdb
+PARAM, 0, DistBench, Run_UUID, HostValues, dfb9456f-4d07-4dfd-bba3-55f4b6e17fdb
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.wgr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/amazon-2008/amazon-2008.wgr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi; msi; msi
+PARAM, 0, SSSP, Max Iterations, HOST_0, 10000
+PARAM, 0, SSSP, Max Iterations, HostValues, 10000
+PARAM, 0, SSSP, Source Node ID, HOST_0, 181919
+PARAM, 0, SSSP, Source Node ID, HostValues, 181919
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0; 0; 0

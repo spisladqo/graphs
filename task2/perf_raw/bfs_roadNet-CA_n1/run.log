@@ -1,0 +1,71 @@
+# command: mpirun -n 1 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[0] Master distribution time : 0.001479 seconds to read 168 bytes in 20 seeks (0.11359 MBPS)
+[0] Starting graph reading.
+[0] Reading graph complete.
+[0] Edge inspection time: 0.084681 seconds to read 53673344 bytes (633.83 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.083391 seconds to read 53673344 bytes (643.635 MBPS)
+[0] Graph construction complete.
+[0] InitializeGraph::go called
+[0] BFS::go run 0 called
+Number of nodes visited from source 933561 is 1957027
+Max distance from source 933561 is 701
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 83
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 83
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 84
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 84
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 33
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 33
+STAT, 0, DistBench, GraphConstructTime, HMAX, 454
+STAT, 0, DistBench, GraphConstructTime, HostValues, 454
+STAT, 0, InitializeGraph_0, Time, HMAX, 25
+STAT, 0, InitializeGraph_0, Time, HostValues, 25
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 0
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 0
+STAT, 0, BFS, NumWorkItems_0, HSUM, 129264068
+STAT, 0, BFS, NumWorkItems_0, HostValues, 129264068
+STAT, 0, BFS, NumIterations_0, HMAX, 382
+STAT, 0, BFS, NumIterations_0, HostValues, 382
+STAT, 0, BFS, Timer_0, HMAX, 3740
+STAT, 0, BFS, Timer_0, HostValues, 3740
+STAT, 0, BFS, TimerTotal, HMAX, 4233
+STAT, 0, BFS, TimerTotal, HostValues, 4233
+STAT, 0, BFS_0, Time, HMAX, 3558
+STAT, 0, BFS_0, Time, HostValues, 3558
+STAT, 0, BFSSanityCheck, Time, HMAX, 12
+STAT, 0, BFSSanityCheck, Time, HostValues, 12
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 1
+PARAM, 0, DistBench, Hosts, HostValues, 1
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, e6955639-d030-4133-8f05-e4be07cf1366
+PARAM, 0, DistBench, Run_UUID, HostValues, e6955639-d030-4133-8f05-e4be07cf1366
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 933561
+PARAM, 0, BFS, Source Node ID, HostValues, 933561
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0

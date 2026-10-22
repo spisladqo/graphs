@@ -1,0 +1,89 @@
+# command: mpirun -n 3 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.gr -startNode=5085 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: BFS - Distributed Heterogeneous with worklist.
+BFS on Distributed Galois.
+
+[0] Master distribution time : 4e-05 seconds to read 152 bytes in 18 seeks (3.8 MBPS)
+[0] Starting graph reading.
+[1] Master distribution time : 0.00257 seconds to read 304 bytes in 38 seeks (0.118288 MBPS)
+[1] Starting graph reading.
+[2] Master distribution time : 0.002589 seconds to read 296 bytes in 35 seeks (0.11433 MBPS)
+[2] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[2] Reading graph complete.
+[0] Edge inspection time: 0.006393 seconds to read 2744276 bytes (429.263 MBPS)
+[1] Edge inspection time: 0.007993 seconds to read 3121800 bytes (390.567 MBPS)
+[2] Edge inspection time: 0.011366 seconds to read 4284092 bytes (376.922 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.016534 seconds to read 2744276 bytes (165.978 MBPS)
+[0] Graph construction complete.
+[1] Edge loading time: 0.019311 seconds to read 3121800 bytes (161.659 MBPS)
+[1] Graph construction complete.
+[2] Edge loading time: 0.018093 seconds to read 4284092 bytes (236.782 MBPS)
+[2] Graph construction complete.
+[2] InitializeGraph::go called
+[1] InitializeGraph::go called
+[0] InitializeGraph::go called
+[0] BFS::go run 0 called
+[2] BFS::go run 0 called
+[1] BFS::go run 0 called
+Number of nodes visited from source 5085 is 227320
+Max distance from source 5085 is 26
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 19
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 16; 19; 18
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 11
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 6; 7; 11
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 2
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 1; 1; 2
+STAT, 0, DistBench, GraphConstructTime, HMAX, 62
+STAT, 0, DistBench, GraphConstructTime, HostValues, 46; 56; 62
+STAT, 0, InitializeGraph_0, Time, HMAX, 2
+STAT, 0, InitializeGraph_0, Time, HostValues, 1; 1; 2
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HSUM, 2079216
+STAT, 0, Gluon, ReduceSendBytes_BFS_0, HostValues, 951552; 788504; 339160
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HSUM, 102
+STAT, 0, Gluon, ReduceNumMessages_BFS_0, HostValues, 34; 34; 34
+STAT, 0, Gluon, Sync_BFS_0, HMAX, 17
+STAT, 0, Gluon, Sync_BFS_0, HostValues, 12; 13; 17
+STAT, 0, BFS, NumWorkItems_0, HSUM, 3954171
+STAT, 0, BFS, NumWorkItems_0, HostValues, 1292946; 1324792; 1336433
+STAT, 0, BFS, NumIterations_0, HMAX, 17
+STAT, 0, BFS, NumIterations_0, HostValues, 17; 17; 17
+STAT, 0, BFS, Timer_0, HMAX, 52
+STAT, 0, BFS, Timer_0, HostValues, 52; 52; 52
+STAT, 0, BFS, TimerTotal, HMAX, 123
+STAT, 0, BFS, TimerTotal, HostValues, 119; 123; 123
+STAT, 0, BFS_0, Time, HMAX, 21
+STAT, 0, BFS_0, Time, HostValues, 15; 19; 21
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.86885
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.86885
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.gr -startNode=5085 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/bfs/bfs-push-dist /home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.gr -startNode=5085 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.tgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 3
+PARAM, 0, DistBench, Hosts, HostValues, 3
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, e24df623-f000-42df-88bc-a23f92c157ad
+PARAM, 0, DistBench, Run_UUID, HostValues, e24df623-f000-42df-88bc-a23f92c157ad
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.gr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/coAuthorsCiteseer/coAuthorsCiteseer.gr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi; msi
+PARAM, 0, BFS, Max Iterations, HOST_0, 10000
+PARAM, 0, BFS, Max Iterations, HostValues, 10000
+PARAM, 0, BFS, Source Node ID, HOST_0, 5085
+PARAM, 0, BFS, Source Node ID, HostValues, 5085
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0; 0

@@ -1,0 +1,84 @@
+# command: mpirun -n 2 --map-by core --bind-to core sh -c 'exec perf stat -e "$PERF_EVENTS" -o "${PERF_OUT_PREFIX}${OMPI_COMM_WORLD_RANK}.txt" -- "$@"' perf-run /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.wgr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+# returncode: 0
+D-Galois Benchmark Suite v6.0.0 (unknown)
+Copyright (C) 2018 The University of Texas at Austin
+http://iss.ices.utexas.edu/galois/
+
+application: SSSP - Distributed Heterogeneous with worklist.
+Variant of Chaotic relaxation SSSP on Distributed Galois.
+
+[0] Master distribution time : 4.9e-05 seconds to read 176 bytes in 21 seeks (3.59184 MBPS)
+[0] Starting graph reading.
+[1] Master distribution time : 0.002555 seconds to read 336 bytes in 41 seeks (0.131507 MBPS)
+[1] Starting graph reading.
+[0] Reading graph complete.
+[1] Reading graph complete.
+[0] Edge inspection time: 0.0445 seconds to read 26712864 bytes (600.289 MBPS)
+[1] Edge inspection time: 0.048217 seconds to read 26960472 bytes (559.149 MBPS)
+Loading edge-data while creating edges
+[0] Edge loading time: 0.063207 seconds to read 37779304 bytes (597.708 MBPS)
+[0] Graph construction complete.
+[1] Edge loading time: 0.063025 seconds to read 38026888 bytes (603.362 MBPS)
+[1] Graph construction complete.
+[0] InitializeGraph::go called
+[1] InitializeGraph::go called
+[0] SSSP::go run 0 called
+[1] SSSP::go run 0 called
+Number of nodes visited from source 933561 is 1957027
+Max distance from source 933561 is 701
+Average distances on visited nodes is 292.673
+STAT_TYPE, HOST_ID, REGION, CATEGORY, TOTAL_TYPE, TOTAL
+STAT, 0, dGraph_Generic, EdgeLoading, HMAX, 63
+STAT, 0, dGraph_Generic, EdgeLoading, HostValues, 63; 63
+STAT, 0, dGraph_Generic, CuSPStateRounds, HOST_0, 100
+STAT, 0, dGraph_Generic, CuSPStateRounds, HostValues, 100
+STAT, 0, dGraph_Generic, EdgeInspection, HMAX, 48
+STAT, 0, dGraph_Generic, EdgeInspection, HostValues, 44; 48
+STAT, 0, dGraph_Generic, GraphReading, HMAX, 20
+STAT, 0, dGraph_Generic, GraphReading, HostValues, 20; 20
+STAT, 0, DistBench, GraphConstructTime, HMAX, 289
+STAT, 0, DistBench, GraphConstructTime, HostValues, 279; 289
+STAT, 0, InitializeGraph_0, Time, HMAX, 13
+STAT, 0, InitializeGraph_0, Time, HostValues, 13; 13
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HSUM, 1642216
+STAT, 0, Gluon, ReduceSendBytes_SSSP_0, HostValues, 761880; 880336
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HSUM, 776
+STAT, 0, Gluon, ReduceNumMessages_SSSP_0, HostValues, 388; 388
+STAT, 0, Gluon, Sync_SSSP_0, HMAX, 193
+STAT, 0, Gluon, Sync_SSSP_0, HostValues, 120; 193
+STAT, 0, SSSP, NumWorkItems_0, HSUM, 131329794
+STAT, 0, SSSP, NumWorkItems_0, HostValues, 69386307; 61943487
+STAT, 0, SSSP, NumIterations_0, HMAX, 388
+STAT, 0, SSSP, NumIterations_0, HostValues, 388; 388
+STAT, 0, SSSP, Timer_0, HMAX, 2324
+STAT, 0, SSSP, Timer_0, HostValues, 2324; 2324
+STAT, 0, SSSP, TimerTotal, HMAX, 2638
+STAT, 0, SSSP, TimerTotal, HostValues, 2634; 2638
+STAT, 0, SSSP_0, Time, HMAX, 1935
+STAT, 0, SSSP_0, Time, HostValues, 1935; 1839
+STAT, 0, SSSPSanityCheck, Time, HMAX, 8
+STAT, 0, SSSPSanityCheck, Time, HostValues, 8; 8
+STAT, 0, Gluon, ReplicationFactor, HOST_0, 1.00661
+STAT, 0, Gluon, ReplicationFactor, HostValues, 1.00661
+PARAM, 0, DistBench, CommandLine, HOST_0, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.wgr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, CommandLine, HostValues, /home/spisladqo/coding/spla/graphs/task2/Galois/build/lonestar/analytics/distributed/sssp/sssp-push-dist /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.wgr -startNode=933561 -runs=1 -graphTranspose=/home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.twgr -maxIterations=10000 -t=1 -partition=oec -exec=Sync
+PARAM, 0, DistBench, Threads, HOST_0, 1
+PARAM, 0, DistBench, Threads, HostValues, 1
+PARAM, 0, DistBench, Hosts, HOST_0, 2
+PARAM, 0, DistBench, Hosts, HostValues, 2
+PARAM, 0, DistBench, Runs, HOST_0, 1
+PARAM, 0, DistBench, Runs, HostValues, 1
+PARAM, 0, DistBench, Run_UUID, HOST_0, 75548246-1b56-409f-b5a4-3e5f37e2593f
+PARAM, 0, DistBench, Run_UUID, HostValues, 75548246-1b56-409f-b5a4-3e5f37e2593f
+PARAM, 0, DistBench, Input, HOST_0, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.wgr
+PARAM, 0, DistBench, Input, HostValues, /home/spisladqo/coding/spla/graphs/task2/data/roadNet-CA/roadNet-CA.wgr
+PARAM, 0, DistBench, PartitionScheme, HOST_0, oec
+PARAM, 0, DistBench, PartitionScheme, HostValues, oec
+PARAM, 0, DistBench, Hostname, HOST_0, msi
+PARAM, 0, DistBench, Hostname, HostValues, msi; msi
+PARAM, 0, SSSP, Max Iterations, HOST_0, 10000
+PARAM, 0, SSSP, Max Iterations, HostValues, 10000
+PARAM, 0, SSSP, Source Node ID, HOST_0, 933561
+PARAM, 0, SSSP, Source Node ID, HostValues, 933561
+PARAM, 0, dGraph, GenericPartitioner, HOST_0, 0
+PARAM, 0, dGraph, GenericPartitioner, HostValues, 0; 0
